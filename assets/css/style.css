@@ -971,7 +971,7 @@ code {
 
 /* -------------------------------------------------------------
    16. Lightbox
-   Natural size and pannable on phones, fitted to the window on desktop.
+   Fitted to the window width, centred; pinch-zoom for detail on phones.
    ------------------------------------------------------------- */
 .lightbox {
   width: 100%; height: 100%;
@@ -983,11 +983,11 @@ code {
   overscroll-behavior: contain;
 }
 .lightbox::backdrop { background: var(--scrim); }
-.lightbox__scroll { width: 100%; height: 100%; padding: 4rem 1rem 1rem; overflow: auto; }
+.lightbox__scroll { display: flex; width: 100%; height: 100%; padding: 4rem 1rem 1rem; overflow: auto; }
 .lightbox__img {
   display: block;
-  width: auto; max-width: none; height: auto;
-  margin-inline: auto;
+  width: 100%; max-width: 1893px; height: auto;
+  margin: auto;
   border: 1px solid var(--line-2);
   border-radius: var(--r-sm);
   box-shadow: var(--shadow);
@@ -1010,10 +1010,6 @@ html:has(.lightbox[open]) { overflow: hidden; }
 /* -------------------------------------------------------------
    17. Responsive
    ------------------------------------------------------------- */
-@media (min-width: 900px) {
-  .lightbox__img { width: 100%; max-width: 1893px; }
-}
-
 @media (max-width: 1024px) {
   .site-nav { display: none; }
   .nav-toggle { display: grid; }
