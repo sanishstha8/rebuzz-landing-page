@@ -1,0 +1,13 @@
+# local safety copy from before the 2026-09-29 redesign
+_backup-before-redesign-2026-09-29/
+
+# the served copy lives in assets/downloads/
+/rebuzz-backup-and-restore.zip
+
+# build output (see scripts/build.sh)
+dist/
+
+# OS clutter
+Thumbs.db
+desktop.ini
+.DS_Store

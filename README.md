@@ -1,0 +1,281 @@
+# ReBuzz Backup &amp; Restore — Landing Page
+
+The official marketing site for **ReBuzz Backup &amp; Restore**, a WordPress
+backup, restore and migration plugin.
+
+A static, single-page site with a light and a dark theme. No build step, no
+framework, no runtime dependencies. Open `index.html` and it works.
+
+---
+
+## Run it
+
+```bash
+# simplest — just open the file
+start index.html          # Windows
+open index.html           # macOS
+
+# or serve it, which is closer to production
+npx serve .
+python -m http.server 8000
+```
+
+Nothing needs to be installed or compiled.
+
+---
+
+## Structure
+
+```
+rebuzz-landing/
+├── index.html              # the landing page + its inline icon sprite
+├── download.html           # download button, requirements, install steps
+├── tailwind.config.js      # design tokens, for a future Tailwind build
+├── README.md
+└── assets/
+    ├── css/style.css       # the whole design system
+    ├── js/script.js        # nav, mobile menu, screenshot lightbox, FAQ, pricing toggle
+    ├── downloads/
+    │   └── rebuzz-backup-and-restore.zip   # the plugin, linked from every "Get ReBuzz"
+    ├── icons/
+    │   ├── favicon.svg
+    │   └── README.md
+    └── images/
+        ├── og-cover.svg    # 1200×630 share card
+        ├── dashboard.png   # real plugin screenshots
+        ├── backup.png
+        ├── restore.png
+        └── README.md       # how to add more screenshots
+```
+
+Structure, styling and behaviour are in three separate files. The CSS is
+organised into numbered sections with a table of contents at the top; the JS
+is a set of independently-guarded `init*()` modules.
+
+---
+
+## Design system
+
+Warm and plain, meant to read like something a person made rather than a
+template: an off-white paper background, serif headlines, readable body text,
+one green accent, and real plugin screenshots instead of illustrations.
+
+| Token | Light | Dark | Used for |
+| --- | --- | --- | --- |
+| `--bg` | `#FBFAF7` | `#0E1513` | page background |
+| `--surface` | `#F3F1EB` | `#121B18` | alternating section bands |
+| `--panel` | `#FFFFFF` | `#16211E` | cards and screenshot frames |
+| `--green` | `#0E8A5F` | `#3CCB94` | large text and icons only (4.2:1) |
+| `--green-1` | `#0A7150` | `#5ADBA6` | links and small green text |
+| `--btn-bg` | `#0B7A52` | `#3CCB94` | primary button (white text 5.4:1) |
+| `--band-bg` | `#143A2E` | `#1B4A3B` | the closing call-to-action band |
+| `--text` / `--text-2` / `--text-3` | `#1D1C19` / `#45423B` / `#6B675E` | `#E8EFEC` / `#B3C1BC` / `#8FA09A` | headings / body / captions |
+
+### Switching themes
+
+Every colour on the page resolves through a variable, so a dark theme is one
+attribute away and needs no other edit:
+
+```html
+<html lang="en" data-theme="dark">
+```
+
+There is no toggle UI — add one only if you want users to choose. If you do,
+set the attribute on `<html>` and persist the choice; nothing else has to change.
+
+**Contrast.** `--green` is 4.2:1 on the page background, which is fine for
+headline text and icons but not for small text, so links use the darker
+`--green-1` (5.8:1). Every text pair on the page clears WCAG AA.
+
+**Type:** Source Serif 4 for section headings, Inter for everything else
+(including the hero headline), IBM Plex Mono only for the hero's vault labels
+and chips. All from Google Fonts with system fallbacks. Headings are sentence
+case.
+
+**Things deliberately left out**, because they read as machine-made: uppercase
+monospace labels above headings, two-tone grey-and-black headlines, icons in
+tinted squares, floating status chips, looping decorative animation, and
+invented UI mockups. Keep them out when adding sections. (The hero is the one
+deliberate exception; see "What's in the page".)
+
+### Why not the Tailwind CDN
+
+The brief listed Tailwind. This ships hand-written CSS instead, deliberately:
+
+- `cdn.tailwindcss.com` is a ~380 KB JS runtime that generates styles at load,
+  and it prints a "should not be used in production" warning to the console.
+- Relying on a CDN for layout means the page breaks when opened offline or
+  straight from the filesystem — which is exactly how you'll first open it.
+- This is one bespoke page. Utility classes earn their keep across many
+  components; here they mostly add indirection over a design that is already
+  token-driven.
+
+`tailwind.config.js` mirrors every token, so adopting a compiled Tailwind build
+later is a mechanical change, not a redesign. That file has the commands.
+
+---
+
+## What's in the page
+
+Hero (the ReBuzz Core) → problem → what it does → a look inside (real
+screenshots) → how it works (three steps + moving hosts) → where your backups
+live → pricing → FAQ → closing call-to-action → footer.
+
+(Pricing is currently switched off — see below.)
+
+**The hero is intentionally the original design**, kept by request when the
+rest of the page was redesigned: Inter headline, the isometric vault with its
+status chips, and the original mint-tinted palette. Section 6 of `style.css`
+pins those original tokens on `.hero`, so it renders the same regardless of the
+page-wide tokens. Only the vault float moves (plus a ~12px pointer parallax,
+`initCoreParallax()`); the scan wedge and data threads stay hidden.
+
+### Interactive pieces
+
+| Feature | Notes |
+| --- | --- |
+| Sticky nav | Gains a hairline past 8px of scroll. |
+| Active section | Nav link highlights via `IntersectionObserver` + `aria-current`. |
+| Mobile menu | Full-screen overlay with focus trap, `Esc` to close, scroll lock, auto-close above 1024px. |
+| Screenshot lightbox | Each screenshot links to its PNG; with JS it opens in a `<dialog>` (pannable at full size on phones). |
+| FAQ accordion | Height-animated, `aria-expanded` + labelled regions, arrow-key navigation, multiple open allowed. |
+| Pricing toggle | Monthly/yearly, values rendered from `CONFIG.pricing`. |
+
+---
+
+## Pricing is currently switched off
+
+The pricing section is disabled by a single attribute on `<html>` in
+`index.html`:
+
+```html
+<html lang="en" data-pricing="off">
+```
+
+While it is set: the pricing section and its three nav links (header, mobile
+menu, footer) are hidden, and the FAQ takes the pricing band's alternating
+background so the section rhythm is unbroken.
+
+The plugin is currently free, and the visible copy says so (the first FAQ
+answer, the agency and support answers, and "Free download" in the closing
+section).
+
+**To bring pricing back, delete `data-pricing="off"`.** Also fill in the real
+figures (see below), rewrite those free-plugin lines, and decide what "Get
+ReBuzz" should do: right now every "Get ReBuzz" button downloads the plugin zip
+directly.
+
+---
+
+## The plugin download
+
+Every "Get ReBuzz" button on the home page (header, mobile menu, hero, closing
+section) opens `download.html`. That page has the actual download button
+(`assets/downloads/rebuzz-backup-and-restore.zip`, with a `download`
+attribute), the requirements, and install, FTP and update instructions.
+
+**For each new release:**
+1. Replace `assets/downloads/rebuzz-backup-and-restore.zip`, keeping the same
+   file name so no links change.
+2. In `download.html`, update the version in the button label ("Download
+   ReBuzz 1.5.4") and in the Requirements table, the file size in the card
+   under the button, and "Tested up to" / minimum WordPress and PHP if they
+   changed. All of these come from the plugin header and `readme.txt`.
+
+Before replacing it, check that the zip holds a single
+`rebuzz-backup-and-restore/` folder and no development files (`.git`,
+`node_modules`, logs, `.env`), since anyone can download it.
+
+People who install from a zip don't get automatic updates unless the plugin
+has its own update checker. A WordPress.org listing would give them updates.
+
+---
+
+## Placeholders to replace before launch
+
+Everything below is intentionally fake-free — no invented statistics,
+testimonials, customer logos, review scores, certifications or awards. What
+*does* need filling in:
+
+1. **Pricing.** `$49 / $99 / $199` annually are placeholders. Edit
+   `CONFIG.pricing` at the top of `assets/js/script.js`, and update the
+   matching defaults in the `data-price` spans in `index.html` so the
+   pre-JS render is correct too.
+2. **Placeholder links.** Every `a[data-placeholder-link]` (Documentation,
+   Support, Blog, Changelog, About, Contact, Privacy, Terms, and the plan
+   checkout buttons) is intercepted by JS and does not navigate. Point them at
+   real URLs and drop the attribute.
+3. **Domain.** `rebuzz.example.com` appears in the canonical, `og:url` and
+   image meta tags of both `index.html` and `download.html`.
+4. **OG image.** `og-cover.png` is what the pages reference; it is rendered
+   from `og-cover.svg`. Re-export it if you change the SVG — see
+   `assets/images/README.md`.
+5. **Screenshots.** The page uses three real captures (dashboard, backup
+   history, restore). A Settings screenshot would be a good addition; see
+   `assets/images/README.md`.
+
+Security copy was written to describe process integrity (verification,
+completeness checks, user-controlled storage) rather than making claims that
+would need substantiating — no encryption standards, no compliance badges. If
+you add hard guarantees later, add them here *and* to the documentation.
+
+---
+
+### One trap worth knowing about
+
+`body` uses **`overflow-x: clip`, not `overflow-x: hidden`**. This is load-bearing.
+
+`overflow-x: hidden` forces the other axis to compute as `auto`, which makes
+`<body>` a scroll container. That silently breaks `IntersectionObserver`
+against the default (viewport) root, so the active-section nav highlight
+stops working, and it moves the scrollport that the sticky header resolves
+against. `clip` blocks sideways scrolling without creating a scroller.
+
+## Accessibility
+
+- Semantic landmarks, one `h1`, ordered heading levels, skip link.
+- Visible `:focus-visible` rings on every interactive element.
+- The accordion follows WAI-ARIA authoring practices, keyboard included.
+- Every screenshot has descriptive `alt` text; decorative icons are `aria-hidden`.
+- The only autonomous motion is the hero vault's slow float. With
+  `prefers-reduced-motion: reduce`, that, the pointer parallax, and the hover
+  and accordion transitions are all switched off.
+- Everything is visible without JavaScript; screenshots then open as plain links.
+
+## Performance
+
+No frameworks and no runtime CSS generation. The hero visual is inline SVG, so
+there is no image on the critical path; screenshots lazy-load with fixed
+`width`/`height` to prevent layout shift. Fonts are preconnected with
+`display=swap`. Icons are an inline sprite.
+
+## Browser support
+
+Modern evergreen browsers. Uses `<dialog>`, `:has()`, `backdrop-filter`,
+`:focus-visible` and `text-wrap: balance`. Without `:has()`, only the
+page-scroll lock behind the lightbox is lost.
+
+## Deploying
+
+The site is hosted on **Cloudflare Pages**, connected to this GitHub
+repository: every push to `main` deploys automatically.
+
+Cloudflare Pages build settings:
+
+| Setting | Value |
+| --- | --- |
+| Framework preset | None |
+| Build command | `sh scripts/build.sh` |
+| Build output directory | `dist` |
+
+`scripts/build.sh` copies only `index.html`, `download.html` and `assets/`
+into `dist/` and drops the READMEs, so notes like this file and
+`tailwind.config.js` are never public. Keep every public file inside those
+paths, or add it to the script.
+
+Not in git (see `.gitignore`): the pre-redesign backup folder and the extra copy
+of the plugin zip in the project root.
+
+---
+
+© 2026 ReBuzz. All rights reserved.

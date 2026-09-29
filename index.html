@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en" data-pricing="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>ReBuzz Backup &amp; Restore — Simple, Secure WordPress Backups</title>
+<meta name="description" content="Back up, restore, and migrate WordPress websites with ReBuzz Backup &amp; Restore. Simple workflows, scheduled backups, secure storage, and reliable recovery.">
+<meta name="theme-color" content="#FBFAF7">
+<meta name="color-scheme" content="light">
+
+<!-- Replace with the production domain before launch -->
+<link rel="canonical" href="https://rebuzz.example.com/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ReBuzz">
+<meta property="og:title" content="ReBuzz Backup &amp; Restore — Simple, Secure WordPress Backups">
+<meta property="og:description" content="Back up, restore, and migrate WordPress websites. Simple workflows, scheduled backups, secure storage, and reliable recovery.">
+<meta property="og:url" content="https://rebuzz.example.com/">
+<meta property="og:image" content="https://rebuzz.example.com/assets/images/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The ReBuzz Core: a WordPress site's files, database and media held inside a verified backup vault.">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ReBuzz Backup &amp; Restore — Simple, Secure WordPress Backups">
+<meta name="twitter:description" content="Back up, restore, and migrate WordPress websites. Simple workflows, scheduled backups, secure storage, and reliable recovery.">
+<meta name="twitter:image" content="https://rebuzz.example.com/assets/images/og-cover.png">
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+
+<link rel="stylesheet" href="assets/css/style.css">
+
+<script defer src="assets/js/script.js"></script>
+</head>
+
+<body>
+
+<!-- Icon sprite, inlined so the page works from the filesystem with no
+     network requests for icons. A standalone copy lives at assets/icons/icons.svg -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><defs>
+  <symbol id="i-hard-drive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><path d="M6 16h.01"/><path d="M10 16h.01"/></symbol>
+  <symbol id="i-restore" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+  <symbol id="i-migrate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H12l-1 8.5 8.5-11.5H12z"/></symbol>
+  <symbol id="i-feather" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><path d="M16 8 2 22"/><path d="M17.5 15H9"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-maximize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5v15l12-7.5z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+</defs></svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="site-header">
+  <div class="site-header__inner container container--wide">
+
+    <a class="brand" href="#top" aria-label="ReBuzz — home">
+      <span class="brand__word">ReBuzz</span>
+    </a>
+
+    <nav class="site-nav" id="primary-nav" aria-label="Primary">
+      <ul class="site-nav__list">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#" data-placeholder-link title="Placeholder — point this at your documentation site">Documentation</a></li>
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="btn btn--primary btn--sm" href="download.html">Get ReBuzz</a>
+      <button class="nav-toggle" type="button" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <svg class="ico ico--lg" aria-hidden="true"><use href="#i-menu"></use></svg>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mobile-menu__head container">
+    <span class="brand brand--static">
+      <span class="brand__word">ReBuzz</span>
+    </span>
+    <button class="nav-toggle" type="button" id="nav-close" aria-label="Close menu">
+      <svg class="ico ico--lg" aria-hidden="true"><use href="#i-x"></use></svg>
+    </button>
+  </div>
+
+  <nav class="mobile-menu__nav container" aria-label="Mobile">
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#screenshots">Screenshots</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#security">Where backups live</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#" data-placeholder-link>Documentation</a></li>
+      <li><a href="#" data-placeholder-link>Support</a></li>
+    </ul>
+  </nav>
+
+  <div class="mobile-menu__foot container">
+    <a class="btn btn--primary btn--lg btn--block" href="download.html">Get ReBuzz</a>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- HERO — restored from before the 2026-09-29 redesign, at the user's request -->
+<section class="hero" id="top">
+
+  <div class="container container--wide hero__inner">
+
+    <div class="hero__copy">
+      <h1 class="hero__title">
+        Back up today.<br>
+        Sleep peacefully<br>
+        <span class="hero__title-accent">every night.</span>
+      </h1>
+
+      <p class="hero__lead">
+        ReBuzz Backup &amp; Restore makes WordPress backups, restores, and
+        migrations simple, secure, and reliable.
+      </p>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="download.html">
+          Get ReBuzz
+          <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+        </a>
+        <a class="btn btn--ghost" href="#how">
+          <svg class="ico" aria-hidden="true"><use href="#i-play"></use></svg>
+          See How It Works
+        </a>
+      </div>
+
+      <ul class="hero__checks">
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg> One-click backup</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg> Cloud storage</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg> Easy restore</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg> Site migration</li>
+      </ul>
+    </div>
+
+    <!-- ---------- The ReBuzz Core ---------- -->
+    <div class="hero__visual">
+      <div class="core" id="rebuzz-core">
+        <div class="core__sweep" aria-hidden="true"></div>
+
+        <svg class="core__svg" viewBox="0 0 560 500" role="img"
+             aria-label="The ReBuzz Core: a WordPress site's files, database, media and configuration held inside a verified backup vault.">
+          <defs>
+            <radialGradient id="coreGlow" cx="50%" cy="46%" r="50%">
+              <stop offset="0%" stop-color="#24CE8D" stop-opacity=".26"/>
+              <stop offset="55%" stop-color="#116B52" stop-opacity=".08"/>
+              <stop offset="100%" stop-color="#06100E" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="faceTop" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#2E5A4E"/><stop offset="100%" stop-color="#1B3A33"/>
+            </linearGradient>
+            <linearGradient id="faceTopLit" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#3E7462"/><stop offset="100%" stop-color="#22483D"/>
+            </linearGradient>
+            <linearGradient id="faceLeft" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1B3B34"/><stop offset="100%" stop-color="#102A24"/>
+            </linearGradient>
+            <linearGradient id="faceRight" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#122C27"/><stop offset="100%" stop-color="#0B1F1B"/>
+            </linearGradient>
+            <linearGradient id="edgeAccent" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#24CE8D" stop-opacity=".85"/>
+              <stop offset="100%" stop-color="#37B8C6" stop-opacity=".25"/>
+            </linearGradient>
+            <pattern id="coreGrid" width="26" height="26" patternUnits="userSpaceOnUse">
+              <path d="M26 0H0v26" fill="none" stroke="#E6F1ED" stroke-opacity=".055" stroke-width="1"/>
+            </pattern>
+            <radialGradient id="gridFade" cx="50%" cy="48%" r="50%">
+              <stop offset="40%" stop-color="#fff" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+            </radialGradient>
+            <mask id="gridMask"><rect width="560" height="500" fill="url(#gridFade)"/></mask>
+            <filter id="coreSoft" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="7"/>
+            </filter>
+          </defs>
+
+          <!-- ambient -->
+          <circle cx="280" cy="232" r="228" fill="url(#coreGlow)"/>
+          <rect width="560" height="500" fill="url(#coreGrid)" mask="url(#gridMask)"/>
+
+          <!-- orbital paths -->
+          <g class="core__orbits" transform="rotate(-11 280 268)">
+            <ellipse cx="280" cy="268" rx="238" ry="88" fill="none" stroke="#E6F1ED" stroke-opacity=".10"/>
+            <ellipse cx="280" cy="268" rx="170" ry="62" fill="none" stroke="#E6F1ED" stroke-opacity=".07" stroke-dasharray="3 7"/>
+          </g>
+
+          <!-- orbit nodes + labels -->
+          <g class="core__nodes">
+            <g class="core__node" style="--d:0s">
+              <circle cx="52" cy="236" r="4.5"/>
+              <text x="52" y="216" text-anchor="middle">DATABASE</text>
+            </g>
+            <g class="core__node" style="--d:.9s">
+              <circle cx="145" cy="352" r="4.5"/>
+              <text x="145" y="376" text-anchor="middle">FILES</text>
+            </g>
+            <g class="core__node" style="--d:1.8s">
+              <circle cx="412" cy="356" r="4.5"/>
+              <text x="412" y="380" text-anchor="middle">MEDIA</text>
+            </g>
+            <g class="core__node" style="--d:2.7s">
+              <circle cx="509" cy="240" r="4.5"/>
+              <text x="509" y="220" text-anchor="middle">CONFIG</text>
+            </g>
+          </g>
+
+          <!-- isometric vault: three stacked snapshot blocks -->
+          <g class="core__vault">
+
+            <!-- block 3 (bottom) — site files -->
+            <g class="core__block" style="--f:2">
+              <path d="M280 330 372 284 280 238 188 284Z" fill="url(#faceTop)" stroke="#E6F1ED" stroke-opacity=".13"/>
+              <path d="M188 284 280 330v34l-92-46Z" fill="url(#faceLeft)" stroke="#E6F1ED" stroke-opacity=".09"/>
+              <path d="M280 330 372 284v34l-92 46Z" fill="url(#faceRight)" stroke="#E6F1ED" stroke-opacity=".06"/>
+              <path d="M188 284 280 330l92-46" fill="none" stroke="#24CE8D" stroke-opacity=".3" stroke-width="1.3"/>
+            </g>
+
+            <!-- block 2 (middle) — database -->
+            <g class="core__block" style="--f:1">
+              <path d="M280 286 372 240 280 194 188 240Z" fill="url(#faceTop)" stroke="#E6F1ED" stroke-opacity=".15"/>
+              <path d="M188 240 280 286v34l-92-46Z" fill="url(#faceLeft)" stroke="#E6F1ED" stroke-opacity=".09"/>
+              <path d="M280 286 372 240v34l-92 46Z" fill="url(#faceRight)" stroke="#E6F1ED" stroke-opacity=".06"/>
+              <path d="M188 240 280 286l92-46" fill="none" stroke="#24CE8D" stroke-opacity=".38" stroke-width="1.3"/>
+              <path d="M204 248 262 277" fill="none" stroke="#7DF0C6" stroke-opacity=".45" stroke-width="1.4"/>
+            </g>
+
+            <!-- block 1 (top) — the protected snapshot -->
+            <g class="core__block core__block--lit" style="--f:0">
+              <path d="M280 242 372 196 280 150 188 196Z" fill="url(#faceTopLit)" stroke="#E6F1ED" stroke-opacity=".2"/>
+              <path d="M188 196 280 242v34l-92-46Z" fill="url(#faceLeft)" stroke="#E6F1ED" stroke-opacity=".11"/>
+              <path d="M280 242 372 196v34l-92 46Z" fill="url(#faceRight)" stroke="#E6F1ED" stroke-opacity=".07"/>
+              <path d="M188 196 280 150l92 46" fill="none" stroke="url(#edgeAccent)" stroke-width="2"/>
+              <path d="M188 196 280 242l92-46" fill="none" stroke="#24CE8D" stroke-opacity=".55" stroke-width="1.4"/>
+              <path d="M280 242v34" fill="none" stroke="#E6F1ED" stroke-opacity=".14"/>
+            </g>
+
+            <!-- shield mark riding above the stack -->
+            <g class="core__shield">
+              <ellipse cx="280" cy="152" rx="46" ry="18" fill="#24CE8D" opacity=".16" filter="url(#coreSoft)"/>
+              <g transform="translate(280 108) scale(1.65)">
+                <path class="core__shield-body" d="M0-22 17-16v14.5C17 8.6 10 16 0 19.5-10 16-17 8.6-17-1.5V-16z"/>
+                <path class="core__shield-check" d="m-7 -1 5 5 9.5-10.5" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+            </g>
+          </g>
+
+          <!-- data threads feeding the vault -->
+          <g class="core__threads">
+            <path class="core__thread" style="--d:0s"   d="M60 238 C 130 232 150 240 186 258"/>
+            <path class="core__thread" style="--d:.7s"  d="M150 348 C 180 330 180 312 200 296"/>
+            <path class="core__thread" style="--d:1.4s" d="M406 352 C 380 332 378 312 360 296"/>
+            <path class="core__thread" style="--d:2.1s" d="M500 242 C 432 234 410 240 374 258"/>
+          </g>
+        </svg>
+
+        <!-- status chips -->
+        <span class="chip chip--a"><span class="dot" aria-hidden="true"></span>Database secured</span>
+        <span class="chip chip--b"><span class="dot" aria-hidden="true"></span>Files protected</span>
+        <span class="chip chip--c"><span class="dot" aria-hidden="true"></span>Backup verified</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section" id="problem" aria-labelledby="problem-title">
+  <div class="container container--wide">
+
+    <header class="section__head">
+      <h2 class="section__title" id="problem-title">Your site changes every day. Your backup should keep up.</h2>
+    </header>
+
+    <div class="compare">
+      <div class="compare__col compare__col--before">
+        <h3 class="compare__title">Without a backup routine</h3>
+        <ul class="compare__list">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-x"></use></svg><span>Manual backups get forgotten.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-x"></use></svg><span>A failed backup is only noticed on the day you need it.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-x"></use></svg><span>Restoring a site eats a whole afternoon.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-x"></use></svg><span>Moving a site means juggling files and a database by hand.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-x"></use></svg><span>Old archives end up scattered across folders and laptops.</span></li>
+        </ul>
+      </div>
+
+      <div class="compare__col compare__col--after">
+        <h3 class="compare__title">With ReBuzz</h3>
+        <ul class="compare__list">
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Backups run on a schedule you set once.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Every archive is checked before it counts as done.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Restores follow the same few steps every time.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Moving a site is just a backup and a restore.</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Your backups stay somewhere you control.</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section section--alt" id="features" aria-labelledby="features-title">
+  <div class="container container--wide">
+
+    <header class="section__head">
+      <h2 class="section__title" id="features-title">What it does</h2>
+    </header>
+
+    <ul class="features">
+      <li class="feature">
+        <svg class="ico feature__icon" aria-hidden="true"><use href="#i-zap"></use></svg>
+        <h3 class="feature__title">One-click backups</h3>
+        <p>Files, database, media and settings, saved together in one archive.</p>
+      </li>
+      <li class="feature">
+        <svg class="ico feature__icon" aria-hidden="true"><use href="#i-calendar"></use></svg>
+        <h3 class="feature__title">Scheduled backups</h3>
+        <p>Hourly, daily or weekly. Retention rules clear out old archives for you.</p>
+      </li>
+      <li class="feature">
+        <svg class="ico feature__icon" aria-hidden="true"><use href="#i-restore"></use></svg>
+        <h3 class="feature__title">Full or partial restore</h3>
+        <p>Put back the whole site, or only the database, the files or the uploads.</p>
+      </li>
+      <li class="feature">
+        <svg class="ico feature__icon" aria-hidden="true"><use href="#i-migrate"></use></svg>
+        <h3 class="feature__title">Site migration</h3>
+        <p>Back up on one site and restore on another. URLs and file paths are updated as it goes.</p>
+      </li>
+      <li class="feature">
+        <svg class="ico feature__icon" aria-hidden="true"><use href="#i-hard-drive"></use></svg>
+        <h3 class="feature__title">Storage you choose</h3>
+        <p>Keep archives on your own server, send copies to external storage you connect, or both.</p>
+      </li>
+      <li class="feature">
+        <svg class="ico feature__icon" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+        <h3 class="feature__title">Checked before it counts</h3>
+        <p>Each archive is checked for completeness before it's marked as a good backup.</p>
+      </li>
+      <li class="feature">
+        <svg class="ico feature__icon" aria-hidden="true"><use href="#i-mail"></use></svg>
+        <h3 class="feature__title">Email alerts</h3>
+        <p>Admins hear about finished runs, and about the ones that fail.</p>
+      </li>
+      <li class="feature">
+        <svg class="ico feature__icon" aria-hidden="true"><use href="#i-feather"></use></svg>
+        <h3 class="feature__title">Light on your server</h3>
+        <p>Work happens in short bursts on your schedule, not constantly in the background.</p>
+      </li>
+    </ul>
+
+  </div>
+</section>
+
+<!-- A LOOK INSIDE — real screenshots -->
+<section class="section" id="screenshots" aria-labelledby="tour-title">
+  <div class="container container--wide">
+
+    <header class="section__head">
+      <h2 class="section__title" id="tour-title">A look inside</h2>
+      <p class="section__desc">
+        These are real screens from the plugin. ReBuzz adds one item to your
+        WordPress menu, with a dashboard, a restore page and settings.
+      </p>
+    </header>
+
+    <div class="tour">
+
+      <figure class="tour__item">
+        <a class="shot__zoom tour__shot" href="assets/images/dashboard.png" target="_blank" rel="noopener" aria-label="Open the dashboard screenshot at full size">
+          <img src="assets/images/dashboard.png"
+               alt="The ReBuzz Backup and Restore dashboard in WordPress admin, showing the plugin, WordPress and PHP versions, the backup directory, total backups and a Create Backup button."
+               width="1893" height="877" loading="lazy" decoding="async">
+          <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+        </a>
+        <figcaption class="tour__text">
+          <h3 class="tour__title">Start from the dashboard</h3>
+          <p>
+            The first screen shows your plugin, WordPress and PHP versions,
+            where backups are kept, how many you have and which is the latest.
+            Create Backup sits right underneath.
+          </p>
+        </figcaption>
+      </figure>
+
+      <figure class="tour__item tour__item--flip">
+        <a class="shot__zoom tour__shot" href="assets/images/backup.png" target="_blank" rel="noopener" aria-label="Open the backup history screenshot at full size">
+          <img src="assets/images/backup.png"
+               alt="ReBuzz backup history table listing a saved archive with its size and date, alongside Download, Restore and Delete buttons, below the temporary-files and other-plugins cleanup options."
+               width="1692" height="866" loading="lazy" decoding="async">
+          <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+        </a>
+        <figcaption class="tour__text">
+          <h3 class="tour__title">Every backup in one list</h3>
+          <p>
+            Download a copy, restore it or delete it from the same table. Got an
+            archive that's too big to upload? Drop the ZIP into the backups
+            folder over FTP and it shows up in the list, with no size limit.
+          </p>
+          <p>
+            The same page tidies up after itself: scratch files from runs that
+            didn't finish, and old data left behind by other backup plugins.
+          </p>
+        </figcaption>
+      </figure>
+
+      <figure class="tour__item">
+        <a class="shot__zoom tour__shot" href="assets/images/restore.png" target="_blank" rel="noopener" aria-label="Open the restore screenshot at full size">
+          <img src="assets/images/restore.png"
+               alt="ReBuzz Restore Backup screen with an upload field for a backup ZIP and a list of existing backups to restore from."
+               width="1687" height="861" loading="lazy" decoding="async">
+          <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+        </a>
+        <figcaption class="tour__text">
+          <h3 class="tour__title">Restore from a list or an upload</h3>
+          <p>
+            Pick one of your saved backups, or upload a ZIP made on this site or
+            on another site running ReBuzz. That second option is how you move a
+            site to a new host.
+          </p>
+          <p>
+            Browser uploads go up to 300&nbsp;MB, or less if your host sets a
+            lower limit. For anything bigger, put the file on the server and
+            restore it from the list at any size.
+          </p>
+        </figcaption>
+      </figure>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section section--alt" id="how" aria-labelledby="how-title">
+  <div class="container container--wide">
+
+    <header class="section__head">
+      <h2 class="section__title" id="how-title">How it works</h2>
+    </header>
+
+    <ol class="steps">
+      <li class="step">
+        <span class="step__num" aria-hidden="true">1</span>
+        <h3 class="step__title">Install it and make your first backup</h3>
+        <p>
+          Add the plugin, open ReBuzz Backup from your WordPress menu and press
+          Create Backup. There's nothing to configure first.
+        </p>
+      </li>
+      <li class="step">
+        <span class="step__num" aria-hidden="true">2</span>
+        <h3 class="step__title">Put it on a schedule</h3>
+        <p>
+          Choose hourly, daily or weekly. Each backup is checked before it's
+          marked as done, and you can have an email sent if a run fails.
+        </p>
+      </li>
+      <li class="step">
+        <span class="step__num" aria-hidden="true">3</span>
+        <h3 class="step__title">Restore when something breaks</h3>
+        <p>
+          A bad update or a plugin conflict? Pick the last good backup and put
+          the site back, or restore just the database, the files or the uploads.
+        </p>
+      </li>
+    </ol>
+
+    <aside class="move" aria-labelledby="move-title">
+      <div>
+        <h3 class="move__title" id="move-title">Moving to a new host?</h3>
+        <p>
+          Use the same steps. Back up the old site, upload the ZIP on the new one
+          and restore it there. ReBuzz updates the site's URLs and file paths as
+          it restores, so staging to live works the same way.
+        </p>
+      </div>
+      <p class="move__path" aria-hidden="true">
+        <span>Old site</span>
+        <svg class="ico"><use href="#i-arrow-right"></use></svg>
+        <span>Backup ZIP</span>
+        <svg class="ico"><use href="#i-arrow-right"></use></svg>
+        <span>New site</span>
+      </p>
+    </aside>
+
+  </div>
+</section>
+
+<!-- WHERE BACKUPS LIVE -->
+<section class="section" id="security" aria-labelledby="security-title">
+  <div class="container container--wide">
+    <div class="split">
+
+      <header class="split__head">
+        <h2 class="section__title" id="security-title">Where your backups live</h2>
+        <p class="section__desc">
+          A backup is only useful if you can trust it. Here's what happens to yours.
+        </p>
+      </header>
+
+      <ul class="trust__list">
+        <li>
+          <h3>On your own server by default</h3>
+          <p>Archives are saved in a folder inside <code>wp-content/uploads</code>, on the same server as your site.</p>
+        </li>
+        <li>
+          <h3>Not reachable from the web</h3>
+          <p>ReBuzz only writes archives to a folder it has confirmed can't be opened by URL. Downloads go through your admin screen.</p>
+        </li>
+        <li>
+          <h3>Your storage, your credentials</h3>
+          <p>If you connect external storage, copies go to your account. ReBuzz doesn't hold your archives anywhere else.</p>
+        </li>
+        <li>
+          <h3>Failed means failed</h3>
+          <p>A backup that fails its check is marked as failed, and it isn't counted as a restore point.</p>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING
+     Placeholder figures — edit CONFIG.pricing in assets/js/script.js -->
+<section class="section section--alt" id="pricing" aria-labelledby="pricing-title">
+  <div class="container container--wide">
+
+    <header class="section__head section__head--center">
+      <h2 class="section__title" id="pricing-title">One plugin. Three licence sizes.</h2>
+      <p class="section__desc section__desc--center">
+        Every plan includes the full feature set. The difference is how many sites
+        you run and how much support you need.
+      </p>
+
+      <div class="billing" role="group" aria-label="Billing period">
+        <button type="button" class="billing__btn" data-billing="monthly" aria-pressed="false">Monthly</button>
+        <button type="button" class="billing__btn is-active" data-billing="yearly" aria-pressed="true">
+          Yearly <span class="billing__save">2 months free</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="plans">
+
+      <div class="plans__grid plans__grid--head">
+        <div class="plans__rowlabel plans__rowlabel--head">
+          <p class="mono-label">Compare licences</p>
+        </div>
+
+        <div class="plan" data-plan="personal">
+          <h3 class="plan__name">Personal</h3>
+          <p class="plan__for">For a single site you look after yourself.</p>
+          <p class="plan__price">
+            <span class="plan__currency">$</span><span data-price="personal">49</span><span class="plan__period" data-period>/year</span>
+          </p>
+          <a class="btn btn--outline btn--block" href="#" data-placeholder-link>Choose Personal</a>
+        </div>
+
+        <div class="plan plan--rec" data-plan="business">
+          <span class="plan__flag mono-label">Recommended</span>
+          <h3 class="plan__name">Business</h3>
+          <p class="plan__for">For small teams running a handful of sites.</p>
+          <p class="plan__price">
+            <span class="plan__currency">$</span><span data-price="business">99</span><span class="plan__period" data-period>/year</span>
+          </p>
+          <a class="btn btn--primary btn--block" href="#" data-placeholder-link>Choose Business</a>
+        </div>
+
+        <div class="plan" data-plan="agency">
+          <h3 class="plan__name">Agency</h3>
+          <p class="plan__for">For developers and agencies with client sites.</p>
+          <p class="plan__price">
+            <span class="plan__currency">$</span><span data-price="agency">199</span><span class="plan__period" data-period>/year</span>
+          </p>
+          <a class="btn btn--outline btn--block" href="#" data-placeholder-link>Choose Agency</a>
+        </div>
+      </div>
+
+      <div class="plans__matrix">
+        <div class="plans__grid plans__row">
+          <div class="plans__rowlabel">Sites per licence</div>
+          <div class="plans__cell"><span class="plans__mobhead">Personal</span>1 site</div>
+          <div class="plans__cell plans__cell--rec"><span class="plans__mobhead">Business</span>5 sites</div>
+          <div class="plans__cell"><span class="plans__mobhead">Agency</span>Unlimited</div>
+        </div>
+
+        <div class="plans__grid plans__row">
+          <div class="plans__rowlabel">One-click &amp; scheduled backups</div>
+          <div class="plans__cell"><span class="plans__mobhead">Personal</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+          <div class="plans__cell plans__cell--rec"><span class="plans__mobhead">Business</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+          <div class="plans__cell"><span class="plans__mobhead">Agency</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+        </div>
+
+        <div class="plans__grid plans__row">
+          <div class="plans__rowlabel">Full &amp; partial restore</div>
+          <div class="plans__cell"><span class="plans__mobhead">Personal</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+          <div class="plans__cell plans__cell--rec"><span class="plans__mobhead">Business</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+          <div class="plans__cell"><span class="plans__mobhead">Agency</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+        </div>
+
+        <div class="plans__grid plans__row">
+          <div class="plans__rowlabel">Site migration</div>
+          <div class="plans__cell"><span class="plans__mobhead">Personal</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+          <div class="plans__cell plans__cell--rec"><span class="plans__mobhead">Business</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+          <div class="plans__cell"><span class="plans__mobhead">Agency</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+        </div>
+
+        <div class="plans__grid plans__row">
+          <div class="plans__rowlabel">External storage destinations</div>
+          <div class="plans__cell"><span class="plans__mobhead">Personal</span>1</div>
+          <div class="plans__cell plans__cell--rec"><span class="plans__mobhead">Business</span>3</div>
+          <div class="plans__cell"><span class="plans__mobhead">Agency</span>Unlimited</div>
+        </div>
+
+        <div class="plans__grid plans__row">
+          <div class="plans__rowlabel">Backup verification &amp; email alerts</div>
+          <div class="plans__cell"><span class="plans__mobhead">Personal</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+          <div class="plans__cell plans__cell--rec"><span class="plans__mobhead">Business</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+          <div class="plans__cell"><span class="plans__mobhead">Agency</span><svg class="ico ico--ok" aria-hidden="true"><use href="#i-check"></use></svg><span class="sr-only">Included</span></div>
+        </div>
+
+        <div class="plans__grid plans__row">
+          <div class="plans__rowlabel">Updates</div>
+          <div class="plans__cell"><span class="plans__mobhead">Personal</span>1 year</div>
+          <div class="plans__cell plans__cell--rec"><span class="plans__mobhead">Business</span>1 year</div>
+          <div class="plans__cell"><span class="plans__mobhead">Agency</span>1 year</div>
+        </div>
+
+        <div class="plans__grid plans__row plans__row--last">
+          <div class="plans__rowlabel">Support</div>
+          <div class="plans__cell"><span class="plans__mobhead">Personal</span>Standard</div>
+          <div class="plans__cell plans__cell--rec"><span class="plans__mobhead">Business</span>Priority</div>
+          <div class="plans__cell"><span class="plans__mobhead">Agency</span>Priority</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="plans__note">
+      Annual licences, priced in USD. Each plan includes one year of updates and
+      support — renew to keep receiving them.
+    </p>
+
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq" aria-labelledby="faq-title">
+  <div class="container container--wide">
+    <div class="split">
+
+    <header class="split__head">
+      <h2 class="section__title" id="faq-title">Questions people ask</h2>
+    </header>
+
+    <div class="faq" id="faq-list">
+
+      <div class="faq__item">
+        <h3><button class="faq__q" type="button" id="faq-b1" aria-expanded="false" aria-controls="faq-p1">
+          <span>What is ReBuzz Backup &amp; Restore?</span>
+          <svg class="ico faq__chev" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq__a" id="faq-p1" role="region" aria-labelledby="faq-b1" hidden>
+          <p>A free WordPress plugin for backing up, restoring and migrating sites. It runs from your WordPress admin and handles files, database, media and configuration in one place. There's no separate service to sign into.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <h3><button class="faq__q" type="button" id="faq-b2" aria-expanded="false" aria-controls="faq-p2">
+          <span>What does ReBuzz back up?</span>
+          <svg class="ico faq__chev" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq__a" id="faq-p2" role="region" aria-labelledby="faq-b2" hidden>
+          <p>WordPress core files, themes, plugins, the uploads and media directory, and the database. You can run a full backup, or select specific parts, for example a database-only run on a tighter schedule.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <h3><button class="faq__q" type="button" id="faq-b3" aria-expanded="false" aria-controls="faq-p3">
+          <span>Can I restore my website?</span>
+          <svg class="ico faq__chev" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq__a" id="faq-p3" role="region" aria-labelledby="faq-b3" hidden>
+          <p>Yes. Choose a backup, review what it contains, and restore the whole site or only the parts you select. Restores run from an archive that has passed verification, and you see what will be replaced before anything is written.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <h3><button class="faq__q" type="button" id="faq-b4" aria-expanded="false" aria-controls="faq-p4">
+          <span>Can I migrate a WordPress website?</span>
+          <svg class="ico faq__chev" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq__a" id="faq-p4" role="region" aria-labelledby="faq-b4" hidden>
+          <p>Yes. Back up the source site, move the package to the destination, and restore it there. Site URLs and file paths are rewritten during the restore, so a staging-to-production move follows the same steps as any other restore.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <h3><button class="faq__q" type="button" id="faq-b5" aria-expanded="false" aria-controls="faq-p5">
+          <span>Where are backups stored?</span>
+          <svg class="ico faq__chev" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq__a" id="faq-p5" role="region" aria-labelledby="faq-b5" hidden>
+          <p>On your own server by default. You can also connect an external storage destination with your own credentials and send copies there. Retention settings control how many archives are kept and for how long.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <h3><button class="faq__q" type="button" id="faq-b6" aria-expanded="false" aria-controls="faq-p6">
+          <span>Can I schedule automatic backups?</span>
+          <svg class="ico faq__chev" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq__a" id="faq-p6" role="region" aria-labelledby="faq-b6" hidden>
+          <p>Yes. Set a frequency and a time and ReBuzz runs on that schedule. Every run is verified and recorded in the dashboard, so you can confirm the last few nights actually happened.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <h3><button class="faq__q" type="button" id="faq-b7" aria-expanded="false" aria-controls="faq-p7">
+          <span>Does ReBuzz affect website performance?</span>
+          <svg class="ico faq__chev" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq__a" id="faq-p7" role="region" aria-labelledby="faq-b7" hidden>
+          <p>ReBuzz is built to work in short scheduled bursts rather than running constantly in the background. Between runs it does very little. Schedule backups for a quiet hour and visitors should not notice them at all.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <h3><button class="faq__q" type="button" id="faq-b8" aria-expanded="false" aria-controls="faq-p8">
+          <span>Is ReBuzz suitable for agencies?</span>
+          <svg class="ico faq__chev" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq__a" id="faq-p8" role="region" aria-labelledby="faq-b8" hidden>
+          <p>Yes. It's free to install on as many sites as you like, and the migration workflow is the one teams use to move client sites between environments. Every site behaves the same way, which is the point.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <h3><button class="faq__q" type="button" id="faq-b9" aria-expanded="false" aria-controls="faq-p9">
+          <span>What happens if a backup fails?</span>
+          <svg class="ico faq__chev" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq__a" id="faq-p9" role="region" aria-labelledby="faq-b9" hidden>
+          <p>It is marked as failed rather than left in an unknown state. The dashboard shows the reason, the archive is not counted as a valid restore point, and if email notifications are on, an administrator is told the same day.</p>
+        </div>
+      </div>
+
+      <div class="faq__item">
+        <h3><button class="faq__q" type="button" id="faq-b10" aria-expanded="false" aria-controls="faq-p10">
+          <span>How do I get support?</span>
+          <svg class="ico faq__chev" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq__a" id="faq-p10" role="region" aria-labelledby="faq-b10" hidden>
+          <p>ReBuzz comes with documentation and access to support. Support channel details are published alongside the plugin documentation.</p>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="closing" id="get-rebuzz" aria-labelledby="closing-title">
+  <div class="container container--wide">
+    <div class="closing__panel">
+      <h2 class="closing__title" id="closing-title">Your next backup shouldn't be an afterthought.</h2>
+      <p class="closing__lead">Set it up today, while nothing is broken.</p>
+      <div class="closing__actions">
+        <a class="btn btn--primary btn--lg" href="download.html">
+          Get ReBuzz
+          <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+        </a>
+        <a class="text-link" href="#" data-placeholder-link>Read the documentation</a>
+      </div>
+      <p class="closing__meta">Free download. Requirements and install steps are on the download page.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container container--wide">
+
+    <div class="site-footer__top">
+
+      <div class="site-footer__brand">
+        <span class="brand brand--static">
+          <span class="brand__word">ReBuzz</span>
+        </span>
+        <p class="site-footer__desc">
+          ReBuzz Backup &amp; Restore. WordPress backups, restores and
+          migrations in one plugin.
+        </p>
+      </div>
+
+      <nav class="site-footer__cols" aria-label="Footer">
+        <div class="site-footer__col">
+          <h2 class="site-footer__heading">Product</h2>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#screenshots">Screenshots</a></li>
+            <li><a href="#" data-placeholder-link>Changelog</a></li>
+          </ul>
+        </div>
+
+        <div class="site-footer__col">
+          <h2 class="site-footer__heading">Resources</h2>
+          <ul>
+            <li><a href="#" data-placeholder-link>Documentation</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#" data-placeholder-link>Blog</a></li>
+            <li><a href="#" data-placeholder-link>Support</a></li>
+          </ul>
+        </div>
+
+        <div class="site-footer__col">
+          <h2 class="site-footer__heading">Company</h2>
+          <ul>
+            <li><a href="#" data-placeholder-link>About</a></li>
+            <li><a href="#" data-placeholder-link>Contact</a></li>
+            <li><a href="#" data-placeholder-link>Privacy</a></li>
+            <li><a href="#" data-placeholder-link>Terms</a></li>
+          </ul>
+        </div>
+      </nav>
+
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>&copy; 2026 ReBuzz. All rights reserved.</p>
+    </div>
+
+  </div>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Screenshot at full size">
+  <button class="lightbox__close" type="button" aria-label="Close full-size screenshot"><svg class="ico ico--lg" aria-hidden="true"><use href="#i-x"></use></svg></button>
+  <div class="lightbox__scroll"><img class="lightbox__img" alt=""></div>
+</dialog>
+
+</body>
+</html>

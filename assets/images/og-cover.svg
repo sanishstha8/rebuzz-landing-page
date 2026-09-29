@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img"
+     aria-label="ReBuzz Backup and Restore — WordPress backups, restores and migrations.">
+  <defs>
+    <linearGradient id="og-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06100E"/>
+      <stop offset="100%" stop-color="#0B1917"/>
+    </linearGradient>
+    <radialGradient id="og-glow" cx="72%" cy="46%" r="46%">
+      <stop offset="0%" stop-color="#24CE8D" stop-opacity=".22"/>
+      <stop offset="100%" stop-color="#06100E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="og-top" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#24483E"/><stop offset="100%" stop-color="#122C27"/>
+    </linearGradient>
+    <linearGradient id="og-top2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1B3A33"/><stop offset="100%" stop-color="#0E2320"/>
+    </linearGradient>
+    <linearGradient id="og-left" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E2320"/><stop offset="100%" stop-color="#081714"/>
+    </linearGradient>
+    <linearGradient id="og-right" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0A1B18"/><stop offset="100%" stop-color="#061210"/>
+    </linearGradient>
+    <pattern id="og-grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0v44" fill="none" stroke="#E6F1ED" stroke-opacity=".045"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#og-bg)"/>
+  <rect width="1200" height="630" fill="url(#og-grid)"/>
+  <rect width="1200" height="630" fill="url(#og-glow)"/>
+
+  <!-- brand lockup -->
+  <g transform="translate(88 84)">
+    <text x="0" y="32" font-family="Inter, Helvetica, Arial, sans-serif" font-size="27" font-weight="700"
+          letter-spacing="-.8" fill="#E6F1ED">ReBuzz</text>
+  </g>
+
+  <!-- headline -->
+  <text x="88" y="268" font-family="Inter, Helvetica, Arial, sans-serif" font-size="62" font-weight="700"
+        letter-spacing="-2.4" fill="#E6F1ED">Back Up Today.</text>
+  <text x="88" y="338" font-family="Inter, Helvetica, Arial, sans-serif" font-size="62" font-weight="700"
+        letter-spacing="-2.4" fill="#E6F1ED">Sleep Peacefully</text>
+  <text x="88" y="408" font-family="Inter, Helvetica, Arial, sans-serif" font-size="62" font-weight="700"
+        letter-spacing="-2.4" fill="#24CE8D">Every Night.</text>
+
+  <text x="88" y="462" font-family="Inter, Helvetica, Arial, sans-serif" font-size="23" fill="#9FB4AE">
+    WordPress backups, restores and migrations — simple, secure and reliable.
+  </text>
+
+  <!-- micro labels -->
+  <g font-family="'IBM Plex Mono', monospace" font-size="14" letter-spacing="2.4" fill="#7B948C">
+    <text x="88" y="530">BACKUP</text>
+    <text x="196" y="530">·</text>
+    <text x="222" y="530">VERIFY</text>
+    <text x="322" y="530">·</text>
+    <text x="348" y="530">STORE</text>
+    <text x="436" y="530">·</text>
+    <text x="462" y="530">RESTORE</text>
+  </g>
+
+  <!-- the ReBuzz Core -->
+  <g transform="translate(870 300)">
+    <ellipse cx="0" cy="86" rx="215" ry="76" fill="none" stroke="#E6F1ED" stroke-opacity=".10"
+             transform="rotate(-11)"/>
+
+    <!-- bottom block -->
+    <path d="M0 106 84 64 0 22-84 64Z" fill="url(#og-top2)"/>
+    <path d="M-84 64 0 106v32l-84-42Z" fill="url(#og-left)"/>
+    <path d="M0 106 84 64v32L0 138Z" fill="url(#og-right)"/>
+
+    <!-- middle block -->
+    <path d="M0 62 84 20 0-22-84 20Z" fill="url(#og-top2)"/>
+    <path d="M-84 20 0 62v32l-84-42Z" fill="url(#og-left)"/>
+    <path d="M0 62 84 20v32L0 94Z" fill="url(#og-right)"/>
+
+    <!-- top block -->
+    <path d="M0 18 84-24 0-66-84-24Z" fill="url(#og-top)"/>
+    <path d="M-84-24 0 18v32l-84-42Z" fill="url(#og-left)"/>
+    <path d="M0 18 84-24v32L0 50Z" fill="url(#og-right)"/>
+    <path d="M-84-24 0-66l84 42" fill="none" stroke="#24CE8D" stroke-opacity=".8" stroke-width="1.8"/>
+
+    <!-- shield -->
+    <g transform="translate(0 -112) scale(1.9)">
+      <path d="M0-22 17-16v14.5C17 8.6 10 16 0 19.5-10 16-17 8.6-17-1.5V-16z"
+            fill="#0B1E1A" fill-opacity=".92" stroke="#24CE8D" stroke-width="1.4"/>
+      <path d="m-7-1 5 5 9.5-10.5" fill="none" stroke="#7DF0C6" stroke-width="2.6"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>
