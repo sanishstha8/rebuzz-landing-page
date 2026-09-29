@@ -9,6 +9,7 @@
 | `dashboard.png` | Real screenshot — ReBuzz Backup and Restore admin page (system info + Create Backup). |
 | `backup.png` | Real screenshot — backup history table (Download / Restore / Delete). |
 | `restore.png` | Real screenshot — Restore Backup page (upload ZIP + existing backups). |
+| `banner.png` | Product banner, 1544×500. Used as the closing call-to-action on the home page (links to the download page). |
 
 ## Share card
 

@@ -68,7 +68,6 @@ one green accent, and real plugin screenshots instead of illustrations.
 | `--green` | `#0E8A5F` | `#3CCB94` | large text and icons only (4.2:1) |
 | `--green-1` | `#0A7150` | `#5ADBA6` | links and small green text |
 | `--btn-bg` | `#0B7A52` | `#3CCB94` | primary button (white text 5.4:1) |
-| `--band-bg` | `#143A2E` | `#1B4A3B` | the closing call-to-action band |
 | `--text` / `--text-2` / `--text-3` | `#1D1C19` / `#45423B` / `#6B675E` | `#E8EFEC` / `#B3C1BC` / `#8FA09A` | headings / body / captions |
 
 ### Switching themes
