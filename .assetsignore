@@ -1,0 +1,13 @@
+# Safety net: only used if the repository root is ever published as the
+# assets directory instead of dist/. Keeps repo internals and notes private.
+.git
+.github
+.gitignore
+.assetsignore
+wrangler.jsonc
+README.md
+tailwind.config.js
+scripts
+dist
+_backup-before-redesign-2026-09-29
+/rebuzz-backup-and-restore.zip

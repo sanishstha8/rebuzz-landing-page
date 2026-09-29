@@ -1,0 +1,9 @@
+// Cloudflare Workers deploy config. Only dist/ (built by scripts/build.sh)
+// is published, so .git, READMEs and other repo files never go live.
+{
+  "name": "rebuzz-backup-restore-plugin",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}

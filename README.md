@@ -257,21 +257,25 @@ page-scroll lock behind the lightbox is lost.
 
 ## Deploying
 
-The site is hosted on **Cloudflare Pages**, connected to this GitHub
-repository: every push to `main` deploys automatically.
+Live at **https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/**,
+a Cloudflare Worker (static assets) connected to this GitHub repository:
+every push to `main` deploys automatically.
 
-Cloudflare Pages build settings:
+How a deploy works:
 
-| Setting | Value |
-| --- | --- |
-| Framework preset | None |
-| Build command | `sh scripts/build.sh` |
-| Build output directory | `dist` |
+1. Cloudflare runs the build command `sh scripts/build.sh`, which copies only
+   `index.html`, `download.html` and `assets/` into `dist/` and drops the
+   READMEs.
+2. `npx wrangler deploy` publishes `dist/`, as set in `wrangler.jsonc`.
 
-`scripts/build.sh` copies only `index.html`, `download.html` and `assets/`
-into `dist/` and drops the READMEs, so notes like this file and
-`tailwind.config.js` are never public. Keep every public file inside those
-paths, or add it to the script.
+**Keep `assets.directory` pointing at `./dist`.** Publishing the repository
+root would expose `.git` and these notes; that happened on the very first
+deploy. `.assetsignore` is a second guard in case the root is ever used. The
+`name` in `wrangler.jsonc` must match the Worker's name in Cloudflare.
+
+`/download.html` redirects to `/download` (Cloudflare's default HTML
+handling); links keep the `.html` so the site still works when opened as
+local files.
 
 Not in git (see `.gitignore`): the pre-redesign backup folder and the extra copy
 of the plugin zip in the project root.
