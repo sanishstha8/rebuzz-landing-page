@@ -20,7 +20,6 @@
    17. Responsive
    18. Reduced motion & print
    19. Pricing — temporarily disabled
-   20. Download page (download.html)
    ============================================================= */
 
 
@@ -1007,6 +1006,7 @@ code {
 html:has(.lightbox[open]) { overflow: hidden; }
 
 
+
 /* -------------------------------------------------------------
    17. Responsive
    ------------------------------------------------------------- */
@@ -1130,99 +1130,3 @@ html:has(.lightbox[open]) { overflow: hidden; }
 
 /* pricing was the shaded band between the trust section and the FAQ */
 [data-pricing="off"] #faq { background: var(--surface); }
-
-
-/* -------------------------------------------------------------
-   20. Download page (download.html)
-   ------------------------------------------------------------- */
-.dl-hero { padding-block: clamp(2.5rem, 1.75rem + 3vw, 4.5rem) clamp(3rem, 2rem + 3vw, 4.5rem); }
-
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: .45rem;
-  margin-bottom: 1.75rem;
-  font-size: var(--fs-xs);
-  font-weight: 500;
-  color: var(--text-2);
-}
-.back-link:hover { color: var(--text); text-decoration: underline; }
-
-.dl-title { font-size: clamp(2.2rem, 1.6rem + 2.6vw, 3.4rem); max-width: 18ch; }
-.dl-lead { margin-top: 1rem; max-width: 38rem; font-size: var(--fs-lead); }
-
-.dl-card {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem 1.5rem;
-  max-width: 40rem;
-  margin-top: 2rem;
-  padding: 1.25rem 1.5rem;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow);
-}
-.dl-card__meta { font-size: var(--fs-xs); color: var(--text-3); line-height: 1.55; }
-
-.dl-details {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 3rem 4.5rem;
-  align-items: start;
-}
-.dl-subtitle { font-size: 1.75rem; margin-bottom: 1.25rem; }
-
-.specs { display: grid; grid-template-columns: max-content minmax(0, 1fr); }
-.specs dt,
-.specs dd { padding: .8rem 0; border-top: 1px solid var(--line-2); }
-.specs dt { padding-right: 2rem; font-weight: 600; color: var(--text); }
-.specs dd { margin: 0; }
-
-.install { display: grid; gap: 1rem; counter-reset: step; }
-/* padding + an absolutely placed number, not grid: the step text mixes plain
-   text and <b>, and grid would turn every run into its own cell */
-.install li {
-  position: relative;
-  min-height: 2rem;
-  padding: .2rem 0 0 2.85rem;
-  counter-increment: step;
-}
-.install li::before {
-  content: counter(step);
-  position: absolute;
-  left: 0; top: 0;
-  display: grid;
-  place-items: center;
-  width: 2rem; height: 2rem;
-  border-radius: 50%;
-  background: var(--green-soft);
-  color: var(--green-1);
-  font-size: .9rem;
-  font-weight: 700;
-}
-
-.dl-note {
-  margin-top: 1.25rem;
-  padding: 1rem 1.2rem;
-  font-size: .9375rem;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-}
-.dl-note + .dl-note { margin-top: .75rem; }
-/* long folder names in the notes must wrap on phones */
-.dl-note code { white-space: normal; overflow-wrap: anywhere; }
-
-@media (max-width: 860px) {
-  .dl-details { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 560px) {
-  .dl-card { padding: 1.1rem; }
-  .dl-card .btn { flex: 1 1 100%; }
-  .specs { grid-template-columns: 1fr; }
-  .specs dt { padding-bottom: 0; }
-  .specs dd { border-top: 0; padding-top: .15rem; }
-}

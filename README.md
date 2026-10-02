@@ -29,14 +29,12 @@ Nothing needs to be installed or compiled.
 ```
 rebuzz-landing/
 ├── index.html              # the landing page + its inline icon sprite
-├── download.html           # download button, requirements, install steps
+├── _redirects              # old /download links -> the WordPress.org listing
 ├── tailwind.config.js      # design tokens, for a future Tailwind build
 ├── README.md
 └── assets/
     ├── css/style.css       # the whole design system
     ├── js/script.js        # nav, mobile menu, screenshot lightbox, FAQ, pricing toggle
-    ├── downloads/
-    │   └── rebuzz-backup-and-restore.zip   # the plugin, linked from every "Get ReBuzz"
     ├── icons/
     │   ├── favicon.svg
     │   └── README.md
@@ -161,32 +159,22 @@ section).
 
 **To bring pricing back, delete `data-pricing="off"`.** Also fill in the real
 figures (see below), rewrite those free-plugin lines, and decide what "Get
-ReBuzz" should do: right now every "Get ReBuzz" button downloads the plugin zip
-directly.
+ReBuzz" should do: right now every "Get ReBuzz" button opens the plugin's
+WordPress.org page.
 
 ---
 
-## The plugin download
+## Getting the plugin
 
-Every "Get ReBuzz" button on the home page (header, mobile menu, hero, closing
-section) opens `download.html`. That page has the actual download button
-(`assets/downloads/rebuzz-backup-and-restore.zip`, with a `download`
-attribute), the requirements, and install, FTP and update instructions.
+The plugin is live on WordPress.org, so the site doesn't host a download any
+more. Every "Get ReBuzz" button on the home page (header, mobile menu, hero,
+closing banner and button) links to
+https://wordpress.org/plugins/rebuzz-backup-and-restore/. The old download page
+and zip were removed on 2026-10-02; `_redirects` sends `/download` and
+`/download.html` to the same listing, so old links still land somewhere useful.
 
-**For each new release:**
-1. Replace `assets/downloads/rebuzz-backup-and-restore.zip`, keeping the same
-   file name so no links change.
-2. In `download.html`, update the version in the button label ("Download
-   ReBuzz 1.5.4") and in the Requirements table, the file size in the card
-   under the button, and "Tested up to" / minimum WordPress and PHP if they
-   changed. All of these come from the plugin header and `readme.txt`.
-
-Before replacing it, check that the zip holds a single
-`rebuzz-backup-and-restore/` folder and no development files (`.git`,
-`node_modules`, logs, `.env`), since anyone can download it.
-
-People who install from a zip don't get automatic updates unless the plugin
-has its own update checker. A WordPress.org listing would give them updates.
+Releases are made on WordPress.org, so there is nothing to update here when the
+plugin version changes. The page doesn't state a version or requirements.
 
 ---
 
@@ -205,7 +193,7 @@ testimonials, customer logos, review scores, certifications or awards. What
    checkout buttons) is intercepted by JS and does not navigate. Point them at
    real URLs and drop the attribute.
 3. **Domain.** `rebuzz.example.com` appears in the canonical, `og:url` and
-   image meta tags of both `index.html` and `download.html`.
+   image meta tags of `index.html`.
 4. **OG image.** `og-cover.png` is what the pages reference; it is rendered
    from `og-cover.svg`. Re-export it if you change the SVG — see
    `assets/images/README.md`.
@@ -263,7 +251,7 @@ every push to `main` deploys automatically.
 How a deploy works:
 
 1. Cloudflare runs the build command `sh scripts/build.sh`, which copies only
-   `index.html`, `download.html` and `assets/` into `dist/` and drops the
+   `index.html`, `_redirects` and `assets/` into `dist/` and drops the
    READMEs.
 2. `npx wrangler deploy` publishes `dist/`, as set in `wrangler.jsonc`.
 
@@ -272,12 +260,12 @@ root would expose `.git` and these notes; that happened on the very first
 deploy. `.assetsignore` is a second guard in case the root is ever used. The
 `name` in `wrangler.jsonc` must match the Worker's name in Cloudflare.
 
-`/download.html` redirects to `/download` (Cloudflare's default HTML
-handling); links keep the `.html` so the site still works when opened as
-local files.
+`_redirects` is read by Cloudflare, not served, and holds the two redirects
+from the old download page to the WordPress.org listing (302, so they can be
+changed later).
 
-Not in git (see `.gitignore`): the pre-redesign backup folder and the extra copy
-of the plugin zip in the project root.
+Not in git (see `.gitignore`): the pre-redesign backup folder and the local
+copy of the plugin zip in the project root.
 
 ---
 

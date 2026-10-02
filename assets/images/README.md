@@ -9,7 +9,7 @@
 | `dashboard.png` | Real screenshot — ReBuzz Backup and Restore admin page (system info + Create Backup). |
 | `backup.png` | Real screenshot — backup history table (Download / Restore / Delete). |
 | `restore.png` | Real screenshot — Restore Backup page (upload ZIP + existing backups). |
-| `banner.png` | Product banner, 1544×500. Used as the closing call-to-action on the home page (links to the download page). |
+| `banner.png` | Product banner, 1544×500. Used as the closing call-to-action on the home page (links to the WordPress.org plugin page). |
 
 ## Share card
 
@@ -21,8 +21,8 @@ example with headless Chrome:
 chrome --headless=new --window-size=1200,630 --screenshot=og-cover.png og-cover.svg
 ```
 
-Share-image URLs must be absolute, so the meta tags in `index.html` and
-`download.html` use the full site address (also in `<link rel="canonical">` and
+Share-image URLs must be absolute, so the meta tags in `index.html`
+use the full site address (also in `<link rel="canonical">` and
 `og:url`).
 
 ## Real plugin screenshots
