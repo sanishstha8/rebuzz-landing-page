@@ -1005,6 +1005,19 @@ code {
 .lightbox__close:hover { background: var(--fill-2); }
 html:has(.lightbox[open]) { overflow: hidden; }
 
+/* demo video: the largest 16:9 box that fits the window (the YouTube
+   iframe is only added when the pop-up opens) */
+.video-frame {
+  width: min(100%, 1100px, calc((100vh - 5rem) * 16 / 9));
+  width: min(100%, 1100px, calc((100dvh - 5rem) * 16 / 9));
+  aspect-ratio: 16 / 9;
+  margin: auto;
+  background: #000;
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.video-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
 
 
 /* -------------------------------------------------------------

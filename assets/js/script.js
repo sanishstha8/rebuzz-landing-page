@@ -194,6 +194,46 @@
 
 
   /* -----------------------------------------------------------
+     3b. Demo video pop-up — the link opens YouTube in a new tab without
+     JS; with JS the video plays here. The iframe only exists while the
+     pop-up is open, so YouTube loads nothing until someone asks for it
+     and closing the pop-up stops the sound.
+     ----------------------------------------------------------- */
+  function initVideo() {
+    var box = $('#video-modal');
+    var links = $$('[data-video]');
+    if (!box || !links.length || typeof box.showModal !== 'function') return;
+
+    var frame = $('.video-frame', box);
+    var scroller = $('.lightbox__scroll', box);
+
+    links.forEach(function (link) {
+      link.setAttribute('aria-haspopup', 'dialog');
+      link.addEventListener('click', function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' +
+          encodeURIComponent(link.getAttribute('data-video')) +
+          '?autoplay=1&rel=0&playsinline=1';
+        iframe.title = 'ReBuzz Backup & Restore demo video';
+        iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        iframe.allowFullscreen = true;
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        frame.appendChild(iframe);
+        box.showModal();
+      });
+    });
+
+    $('.lightbox__close', box).addEventListener('click', function () { box.close(); });
+    box.addEventListener('click', function (e) {
+      if (e.target === box || e.target === scroller) box.close();
+    });
+    box.addEventListener('close', function () { frame.textContent = ''; });
+  }
+
+
+  /* -----------------------------------------------------------
      4. FAQ accordion
      ----------------------------------------------------------- */
   function initAccordion() {
@@ -370,6 +410,7 @@
   initActiveSection();
   initMobileMenu();
   initLightbox();
+  initVideo();
   initAccordion();
   initPricing();
   initPlaceholderLinks();

@@ -135,6 +135,7 @@ page-wide tokens. Only the vault float moves (plus a ~12px pointer parallax,
 | Active section | Nav link highlights via `IntersectionObserver` + `aria-current`. |
 | Mobile menu | Full-screen overlay with focus trap, `Esc` to close, scroll lock, auto-close above 1024px. |
 | Screenshot lightbox | Each screenshot links to its PNG; with JS it opens in a `<dialog>` (pannable at full size on phones). |
+| Demo video | "See How It Works" (hero) plays the YouTube demo in a `<dialog>`. The video ID is the `data-video` attribute on that link; the `href` is the YouTube watch URL, which opens in a new tab when JS is off. The iframe (youtube-nocookie.com) is only created when the pop-up opens and removed when it closes, so nothing loads from YouTube until someone asks and closing stops playback. |
 | FAQ accordion | Height-animated, `aria-expanded` + labelled regions, arrow-key navigation, multiple open allowed. |
 | Pricing toggle | Monthly/yearly, values rendered from `CONFIG.pricing`. |
 
