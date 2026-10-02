@@ -175,10 +175,14 @@
     var scroller = $('.lightbox__scroll', box);
     var img = $('.lightbox__img', box);
 
+    // never show a screenshot larger than its own pixels: that only blurs it
+    img.addEventListener('load', function () { img.style.maxWidth = img.naturalWidth + 'px'; });
+
     $$('.shot__zoom').forEach(function (link) {
       link.addEventListener('click', function (e) {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
         e.preventDefault();
+        img.style.maxWidth = '';
         img.src = link.getAttribute('href');
         img.alt = $('img', link).alt;
         box.showModal();

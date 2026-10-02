@@ -6,9 +6,11 @@
 | --- | --- |
 | `og-cover.png` | Share card for link previews, 1200×630. This is what the pages reference. |
 | `og-cover.svg` | Source of the share card. Edit this, then re-export the PNG. |
-| `dashboard.png` | Real screenshot — ReBuzz Backup and Restore admin page (system info + Create Backup). |
-| `backup.png` | Real screenshot — backup history table (Download / Restore / Delete). |
-| `restore.png` | Real screenshot — Restore Backup page (upload ZIP + existing backups). |
+| `create-backup.png` | Real screenshot (v1.6.0) — Backups tab while a backup runs (progress bar, empty list). |
+| `your-backups.png` | Real screenshot — Backups tab after a backup: stats cards, Create Backup, backup list (Download / Restore / Delete). |
+| `restore-choose.png` | Real screenshot — Restore tab: pick a saved backup or upload a ZIP. |
+| `restore-confirm.png` | Real screenshot — "Restore this backup" screen: contents table, warning, remove-files option and the finished-restore summary. |
+| `settings.png` | Real screenshot — Settings tab: include WordPress core option and system information. |
 | `banner.png` | Product banner, 1544×500. Used as the closing call-to-action on the home page (links to the WordPress.org plugin page). |
 
 ## Share card
@@ -27,17 +29,20 @@ use the full site address (also in `<link rel="canonical">` and
 
 ## Real plugin screenshots
 
-`dashboard.png`, `backup.png` and `restore.png` are in the “A look inside”
-section (`#screenshots`). The page shows only real captures, with no mockups.
+The five plugin screenshots are in the “A look inside” section
+(`#screenshots`). The page shows only real captures, with no mockups, and each
+caption only describes what its screen shows, so check the copy whenever you
+swap an image. Retaking one: keep a new file name (not the old one) so browsers
+and the CDN don't keep showing the cached image.
 
-To add another screen (a Settings capture would be the obvious next one), drop
-the PNG here and add a `.tour__item` to the `#screenshots` section, copying an
-existing one. Alternate `tour__item--flip` so image and text swap sides:
+To add another screen, drop the PNG here and add a `.tour__item` to the
+`#screenshots` section, copying an existing one. Alternate `tour__item--flip` so
+image and text swap sides:
 
 ```html
 <figure class="tour__item">
-  <a class="shot__zoom tour__shot" href="assets/images/settings.png" target="_blank" rel="noopener" aria-label="Open the settings screenshot at full size">
-    <img src="assets/images/settings.png"
+  <a class="shot__zoom tour__shot" href="assets/images/new-screen.png" target="_blank" rel="noopener" aria-label="Open the new screen screenshot at full size">
+    <img src="assets/images/new-screen.png"
          alt="Describe exactly what this screen shows."
          width="1700" height="860" loading="lazy" decoding="async">
     <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>

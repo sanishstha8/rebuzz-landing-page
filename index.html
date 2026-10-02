@@ -387,68 +387,119 @@
       <h2 class="section__title" id="tour-title">A look inside</h2>
       <p class="section__desc">
         These are real screens from the plugin. ReBuzz adds one item to your
-        WordPress menu, with a dashboard, a restore page and settings.
+        WordPress menu, with three tabs: Backups, Restore and Settings.
       </p>
     </header>
 
     <div class="tour">
 
       <figure class="tour__item">
-        <a class="shot__zoom tour__shot" href="assets/images/dashboard.png" target="_blank" rel="noopener" aria-label="Open the dashboard screenshot at full size">
-          <img src="assets/images/dashboard.png"
-               alt="The ReBuzz Backup and Restore dashboard in WordPress admin, showing the plugin, WordPress and PHP versions, the backup directory, total backups and a Create Backup button."
-               width="1893" height="877" loading="lazy" decoding="async">
+        <a class="shot__zoom tour__shot" href="assets/images/create-backup.png" target="_blank" rel="noopener" aria-label="Open the backup progress screenshot at full size">
+          <img src="assets/images/create-backup.png"
+               alt="The ReBuzz Backups tab while a backup is running: a progress bar at 30% with the message “Database exported”, the elapsed time and the estimated time left, above an empty backup list. Cards at the top show the last backup, stored backups and a private backup folder."
+               width="1280" height="736" loading="lazy" decoding="async">
           <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
         </a>
         <figcaption class="tour__text">
-          <h3 class="tour__title">Start from the dashboard</h3>
+          <h3 class="tour__title">One button, and you can watch it work</h3>
           <p>
-            The first screen shows your plugin, WordPress and PHP versions,
-            where backups are kept, how many you have and which is the latest.
-            Create Backup sits right underneath.
+            Create Backup copies every file and the whole database into a single
+            ZIP. It runs in small steps with a progress bar and a time estimate, so
+            you can see how far along it is. Keep the page open until it finishes.
+          </p>
+          <p>
+            The cards above it show when the last backup ran, how many you have
+            stored and how much space they take, and whether the backup folder is
+            private.
           </p>
         </figcaption>
       </figure>
 
       <figure class="tour__item tour__item--flip">
-        <a class="shot__zoom tour__shot" href="assets/images/backup.png" target="_blank" rel="noopener" aria-label="Open the backup history screenshot at full size">
-          <img src="assets/images/backup.png"
-               alt="ReBuzz backup history table listing a saved archive with its size and date, alongside Download, Restore and Delete buttons, below the temporary-files and other-plugins cleanup options."
-               width="1692" height="866" loading="lazy" decoding="async">
+        <a class="shot__zoom tour__shot" href="assets/images/your-backups.png" target="_blank" rel="noopener" aria-label="Open the backup list screenshot at full size">
+          <img src="assets/images/your-backups.png"
+               alt="The ReBuzz Backups tab after a backup has finished: cards for the last backup, stored backups and a private backup folder, a Create Backup button, and a table listing the saved backup with its size and Download, Restore and Delete buttons."
+               width="1280" height="710" loading="lazy" decoding="async">
           <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
         </a>
         <figcaption class="tour__text">
           <h3 class="tour__title">Every backup in one list</h3>
           <p>
-            Download a copy, restore it or delete it from the same table. Got an
-            archive that's too big to upload? Drop the ZIP into the backups
-            folder over FTP and it shows up in the list, with no size limit.
+            Download a copy, restore it or delete it from the same table. Downloads
+            go through your admin screen, never by a public link.
           </p>
           <p>
-            The same page tidies up after itself: scratch files from runs that
-            didn't finish, and old data left behind by other backup plugins.
+            Got an archive that's too big to upload? Copy the ZIP into the backup
+            folder over FTP and it shows up in the list too, at any size.
           </p>
         </figcaption>
       </figure>
 
       <figure class="tour__item">
-        <a class="shot__zoom tour__shot" href="assets/images/restore.png" target="_blank" rel="noopener" aria-label="Open the restore screenshot at full size">
-          <img src="assets/images/restore.png"
-               alt="ReBuzz Restore Backup screen with an upload field for a backup ZIP and a list of existing backups to restore from."
-               width="1687" height="861" loading="lazy" decoding="async">
+        <a class="shot__zoom tour__shot" href="assets/images/restore-choose.png" target="_blank" rel="noopener" aria-label="Open the restore screenshot at full size">
+          <img src="assets/images/restore-choose.png"
+               alt="The ReBuzz Restore tab with two panels: a list of saved backups with a Choose button, and an Upload a backup form with a Choose File field and an Upload &amp; Inspect button."
+               width="1280" height="495" loading="lazy" decoding="async">
           <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
         </a>
         <figcaption class="tour__text">
           <h3 class="tour__title">Restore from a list or an upload</h3>
           <p>
-            Pick one of your saved backups, or upload a ZIP made on this site or
-            on another site running ReBuzz. That second option is how you move a
-            site to a new host.
+            Pick one of your saved backups, or upload a ZIP made on this site or on
+            another one running ReBuzz. That second option is how you move a site to
+            a new host. An uploaded file is checked before anything is restored.
           </p>
           <p>
-            Browser uploads go up to 300&nbsp;MB, or less if your host sets a
-            lower limit. For anything bigger, put the file on the server and
-            restore it from the list at any size.
+            The upload form takes files up to 300&nbsp;MB. For a bigger backup, copy
+            the ZIP into the backup folder with FTP or your host's file manager and
+            restore it from the list.
+          </p>
+        </figcaption>
+      </figure>
+
+      <figure class="tour__item tour__item--flip">
+        <a class="shot__zoom tour__shot" href="assets/images/restore-confirm.png" target="_blank" rel="noopener" aria-label="Open the restore confirmation screenshot at full size">
+          <img src="assets/images/restore-confirm.png"
+               alt="The ReBuzz Restore this backup screen after a restore: a table of what the backup contains, a warning that restoring overwrites the current website, a checkbox to remove files that aren't in the backup, a Restore Backup button with a 100% progress bar, a success summary of files, folders and database tables restored, and an Open Permalink Settings button."
+               width="1280" height="1203" loading="lazy" decoding="async">
+          <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+        </a>
+        <figcaption class="tour__text">
+          <h3 class="tour__title">See what's inside before you confirm</h3>
+          <p>
+            Choosing a backup shows what it holds first: its type, when it was made,
+            the WordPress and PHP versions, and how many files and database tables it
+            contains. Nothing changes until you press Restore Backup, and the screen
+            warns you that it overwrites the current site.
+          </p>
+          <p>
+            A restore only adds and overwrites unless you tick &ldquo;Remove files
+            that aren't in this backup&rdquo;. Even then nothing is deleted: those
+            files are moved aside to a folder with an &ldquo;-old&rdquo; suffix, and
+            you get a button to clear them once you've checked the site. When it
+            finishes, a summary lists what was restored.
+          </p>
+        </figcaption>
+      </figure>
+
+      <figure class="tour__item">
+        <a class="shot__zoom tour__shot" href="assets/images/settings.png" target="_blank" rel="noopener" aria-label="Open the settings screenshot at full size">
+          <img src="assets/images/settings.png"
+               alt="The ReBuzz Settings tab, with a checkbox to include WordPress core files in each backup and a Save Changes button, above a system information table listing the plugin, WordPress and PHP versions and the backup and log folders."
+               width="1280" height="782" loading="lazy" decoding="async">
+          <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+        </a>
+        <figcaption class="tour__text">
+          <h3 class="tour__title">Choose whether to include WordPress core</h3>
+          <p>
+            Include it and a backup can rebuild the site on an empty server, with the
+            exact WordPress version it was made with. Leave it out and backups are
+            smaller, and a restore keeps the WordPress version already installed.
+          </p>
+          <p>
+            Themes, plugins, uploads and the whole database are always included.
+            wp-config.php never is, so a restore keeps this site's database login.
+            The system information below is there for when you ask for help.
           </p>
         </figcaption>
       </figure>
