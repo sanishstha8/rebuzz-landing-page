@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/sitemap.xml

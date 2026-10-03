@@ -195,8 +195,9 @@ testimonials, customer logos, review scores, certifications or awards. What
    Support, Blog, Changelog, About, Contact, Privacy, Terms, and the plan
    checkout buttons) is intercepted by JS and does not navigate. Point them at
    real URLs and drop the attribute.
-3. **Domain.** `rebuzz.example.com` appears in the canonical, `og:url` and
-   image meta tags of `index.html`.
+3. **Domain.** The workers.dev address appears in the canonical, `og:url`,
+   image meta tags and JSON-LD block of `index.html`, and in `robots.txt` and
+   `sitemap.xml`. If you add a custom domain, change all of them (see SEO).
 4. **OG image.** `og-cover.png` is what the pages reference; it is rendered
    from `og-cover.svg`. Re-export it if you change the SVG — see
    `assets/images/README.md`.
@@ -238,7 +239,35 @@ against. `clip` blocks sideways scrolling without creating a scroller.
 No frameworks and no runtime CSS generation. The hero visual is inline SVG, so
 there is no image on the critical path; screenshots lazy-load with fixed
 `width`/`height` to prevent layout shift. Fonts are preconnected with
-`display=swap`. Icons are an inline sprite.
+`display=swap`, and their stylesheet loads without blocking the first paint
+(`rel="preload"` swapped to `stylesheet` on load, with a `<noscript>` copy).
+That took mobile LCP in a local Lighthouse run from 3.5 s to 1.8 s. Icons are
+an inline sprite.
+
+## SEO
+
+What is in place, all in the `<head>` of `index.html` unless noted:
+
+- A keyword-bearing `<title>` (54 characters) and meta description (145), one
+  `h1`, ordered headings, descriptive image `alt` text.
+- `<link rel="canonical">`, Open Graph and Twitter card tags, and a robots meta.
+- A JSON-LD block describing the site (`WebSite`) and the plugin
+  (`SoftwareApplication`, free, linking to its WordPress.org listing). It has
+  no `aggregateRating` or `review` on purpose: there are none to cite, and none
+  may be invented. Google's Rich Results Test will therefore report the
+  software result as not eligible for star snippets; that is expected.
+- `robots.txt` (allows everything, points at the sitemap) and `sitemap.xml`
+  (one URL), both copied into `dist/` by `scripts/build.sh`. Cloudflare adds a
+  block of content-signal comments to the top of the served `robots.txt`.
+
+Keep the title, description and the JSON-LD description in step with what the
+plugin really does; don't add claims the WordPress.org listing doesn't back.
+
+**Moving to a custom domain** is the biggest SEO gain still available, since a
+workers.dev address carries little authority. When it happens, replace the old
+address in the canonical, `og:url`, `og:image`, `twitter:image`, the JSON-LD
+block, `robots.txt` and `sitemap.xml`, and add a redirect from the workers.dev
+address to the new one.
 
 ## Browser support
 
@@ -255,8 +284,8 @@ every push to `main` deploys automatically.
 How a deploy works:
 
 1. Cloudflare runs the build command `sh scripts/build.sh`, which copies only
-   `index.html`, `_redirects` and `assets/` into `dist/` and drops the
-   READMEs.
+   `index.html`, `robots.txt`, `sitemap.xml`, `_redirects` and `assets/` into
+   `dist/` and drops the READMEs.
 2. `npx wrangler deploy` publishes `dist/`, as set in `wrangler.jsonc`.
 
 **Keep `assets.directory` pointing at `./dist`.** Publishing the repository

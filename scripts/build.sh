@@ -4,5 +4,5 @@
 set -e
 rm -rf dist
 mkdir dist
-cp -r index.html _redirects assets dist/
+cp -r index.html robots.txt sitemap.xml _redirects assets dist/
 find dist -name 'README.md' -delete

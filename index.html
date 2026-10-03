@@ -4,19 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>ReBuzz Backup &amp; Restore — Simple, Secure WordPress Backups</title>
-<meta name="description" content="Back up, restore, and migrate WordPress websites with ReBuzz Backup &amp; Restore. Simple workflows, scheduled backups, secure storage, and reliable recovery.">
+<title>ReBuzz Backup &amp; Restore — Free WordPress Backup Plugin</title>
+<meta name="description" content="ReBuzz Backup &amp; Restore is a free WordPress plugin. Back up your files and database in one ZIP, restore the whole site, or move it to a new host.">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#FBFAF7">
 <meta name="color-scheme" content="light">
 
-<!-- Live address. Update here and in the og:/twitter: tags if you add a custom domain. -->
+<!-- Live address. If you add a custom domain, change it in every place below:
+     canonical, og:url, og:image, twitter:image, the JSON-LD block, and the
+     URLs in robots.txt and sitemap.xml. -->
 <link rel="canonical" href="https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ReBuzz">
-<meta property="og:title" content="ReBuzz Backup &amp; Restore — Simple, Secure WordPress Backups">
-<meta property="og:description" content="Back up, restore, and migrate WordPress websites. Simple workflows, scheduled backups, secure storage, and reliable recovery.">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="ReBuzz Backup &amp; Restore — Free WordPress Backup Plugin">
+<meta property="og:description" content="A free WordPress plugin. Back up your files and database in one ZIP, restore the whole site, or move it to a new host.">
 <meta property="og:url" content="https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/">
 <meta property="og:image" content="https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/og-cover.png">
 <meta property="og:image:width" content="1200">
@@ -25,8 +29,8 @@
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ReBuzz Backup &amp; Restore — Simple, Secure WordPress Backups">
-<meta name="twitter:description" content="Back up, restore, and migrate WordPress websites. Simple workflows, scheduled backups, secure storage, and reliable recovery.">
+<meta name="twitter:title" content="ReBuzz Backup &amp; Restore — Free WordPress Backup Plugin">
+<meta name="twitter:description" content="A free WordPress plugin. Back up your files and database in one ZIP, restore the whole site, or move it to a new host.">
 <meta name="twitter:image" content="https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/og-cover.png">
 
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
@@ -34,9 +38,54 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<!-- Fonts load without blocking the first paint (display=swap shows the text in
+     a fallback face meanwhile). The noscript copy keeps them working without JS. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap"></noscript>
 
 <link rel="stylesheet" href="assets/css/style.css">
+
+<!-- Structured data. Deliberately no aggregateRating or review: there are no
+     ratings to cite on this page, and none may be invented. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/#website",
+      "url": "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/",
+      "name": "ReBuzz",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/#plugin",
+      "name": "ReBuzz Backup & Restore",
+      "description": "A free WordPress plugin. Back up your files and database in one ZIP, restore the whole site, or move it to a new host.",
+      "url": "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "WordPress",
+      "downloadUrl": "https://wordpress.org/plugins/rebuzz-backup-and-restore/",
+      "image": "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/og-cover.png",
+      "screenshot": [
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/create-backup.png",
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/your-backups.png",
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/restore-choose.png",
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/restore-confirm.png",
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/settings.png"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "url": "https://wordpress.org/plugins/rebuzz-backup-and-restore/"
+      },
+      "isPartOf": { "@id": "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/#website" }
+    }
+  ]
+}
+</script>
 
 <script defer src="assets/js/script.js"></script>
 </head>
