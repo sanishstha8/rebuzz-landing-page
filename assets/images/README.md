@@ -6,11 +6,13 @@
 | --- | --- |
 | `og-cover.png` | Share card for link previews, 1200×630. This is what the pages reference. |
 | `og-cover.svg` | Source of the share card. Edit this, then re-export the PNG. |
-| `create-backup.png` | Real screenshot (v1.6.0) — Backups tab while a backup runs (progress bar, empty list). |
-| `your-backups.png` | Real screenshot — Backups tab after a backup: stats cards, Create Backup, backup list (Download / Restore / Delete). |
-| `restore-choose.png` | Real screenshot — Restore tab: pick a saved backup or upload a ZIP. |
-| `restore-confirm.png` | Real screenshot — "Restore this backup" screen: contents table, warning, remove-files option and the finished-restore summary. |
-| `settings.png` | Real screenshot — Settings tab: include WordPress core option and system information. |
+| `create-backup-v180.png` | Real screenshot (v1.8.0) — Backups tab while a backup runs (progress bar at 30%), list cropped after three rows. |
+| `your-backups-v180.png` | Real screenshot (v1.8.0) — Backups tab: stats cards (incl. next backup), Create Backup, backup list with Scheduled / S3 / Dropbox tags, cropped after three rows. |
+| `restore-choose-v180.png` | Real screenshot (v1.8.0) — Restore tab: pick a saved backup (cropped after four rows) or upload a ZIP. |
+| `restore-confirm-v180.png` | Real screenshot (v1.8.0) — "Restore this backup" screen before confirming: contents table, warning, remove-files option, Restore Backup button. |
+| `settings-v180.png` | Real screenshot (v1.8.0) — Settings tab: include WordPress core option and system information. |
+| `schedule-v180.png` | Real screenshot (v1.8.0) — Schedule tab: next / last scheduled backup, frequency, time, keep-N, email notices, Run now. |
+| `storage-v180.png` | Real screenshot (v1.8.0) — Storage tab, the S3 and Dropbox cards only. Captured from a test site; the form fields were filled with example values in the browser (not saved) and the Dropbox account name reads "Demo User". |
 | `banner.png` | Product banner, 1544×500. Used as the closing call-to-action on the home page (links to the WordPress.org plugin page). |
 
 ## Share card
@@ -29,18 +31,27 @@ use the full site address (also in `<link rel="canonical">` and
 
 ## Real plugin screenshots
 
-The five plugin screenshots are in the “A look inside” section
+The seven plugin screenshots are in the “A look inside” section
 (`#screenshots`). The page shows only real captures, with no mockups, and each
 caption only describes what its screen shows, so check the copy whenever you
 swap an image. Retaking one: keep a new file name (not the old one) so browsers
 and the CDN don't keep showing the cached image.
 
-To add another screen, drop the PNG here and add a `.tour__item` to the
-`#screenshots` section, copying an existing one. Alternate `tour__item--flip` so
-image and text swap sides:
+The section is a set of tabs named after the plugin's own tabs (Backups,
+Restore, Schedule, Storage, Settings). Each `.tour__panel` holds one or two
+`.tour__item` screens; when a panel has two, `script.js` adds a small switch
+above the caption, labelled from each screen's `data-view`. Without JS every
+screen shows, stacked. The arrow buttons on the sides of the screenshot (added
+by `script.js`), or a left/right swipe on touch screens, step through every
+screen in page order, across tabs. Every screenshot sits in the same 16:10 frame, so a
+taller capture shows its top part and "Full size" opens the rest: put what
+matters near the top.
+
+To add a screen to an existing tab, drop the PNG here and add a `.tour__item`
+to that tab's panel (two per panel at most):
 
 ```html
-<figure class="tour__item">
+<figure class="tour__item" data-view="Short label">
   <a class="shot__zoom tour__shot" href="assets/images/new-screen.png" target="_blank" rel="noopener" aria-label="Open the new screen screenshot at full size">
     <img src="assets/images/new-screen.png"
          alt="Describe exactly what this screen shows."
@@ -49,10 +60,14 @@ image and text swap sides:
   </a>
   <figcaption class="tour__text">
     <h3 class="tour__title">A short, plain heading</h3>
-    <p>What the reader is looking at, and why it matters to them.</p>
+    <p>Two or three sentences: what the reader is looking at, and why it matters.</p>
   </figcaption>
 </figure>
 ```
+
+For a new plugin tab, add a `<button role="tab">` to `.tour__tabs` and a
+matching `<div class="tour__panel" role="tabpanel">`, copying an existing pair
+and keeping `id`, `aria-controls` and `aria-labelledby` in step.
 
 The `shot__zoom` link is what makes it open in the full-size viewer. Keep the
 `alt` text descriptive: it is the only description a screen-reader user gets.

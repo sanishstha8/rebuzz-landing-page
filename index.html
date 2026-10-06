@@ -69,11 +69,13 @@
       "downloadUrl": "https://wordpress.org/plugins/rebuzz-backup-and-restore/",
       "image": "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/og-cover.png",
       "screenshot": [
-        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/create-backup.png",
-        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/your-backups.png",
-        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/restore-choose.png",
-        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/restore-confirm.png",
-        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/settings.png"
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/create-backup-v180.png",
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/your-backups-v180.png",
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/restore-choose-v180.png",
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/restore-confirm-v180.png",
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/schedule-v180.png",
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/storage-v180.png",
+        "https://rebuzz-backup-restore-plugin.xthasanish44.workers.dev/assets/images/settings-v180.png"
       ],
       "offers": {
         "@type": "Offer",
@@ -100,6 +102,8 @@
   <symbol id="i-migrate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
   <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
   <symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
   <symbol id="i-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
@@ -436,122 +440,150 @@
       <h2 class="section__title" id="tour-title">A look inside</h2>
       <p class="section__desc">
         These are real screens from the plugin. ReBuzz adds one item to your
-        WordPress menu, with three tabs: Backups, Restore and Settings.
+        WordPress menu, with the same five tabs you can switch between here.
       </p>
     </header>
 
-    <div class="tour">
+    <!-- Without JS every screen shows, stacked; script.js turns this into tabs. -->
+    <div class="tour" id="tour">
+      <div class="tour__tabs" role="tablist" aria-label="Plugin screens" hidden>
+        <button class="tour__tab" type="button" role="tab" id="tour-tab-backups" aria-controls="tour-backups" aria-selected="false" tabindex="-1">Backups</button>
+        <button class="tour__tab" type="button" role="tab" id="tour-tab-restore" aria-controls="tour-restore" aria-selected="false" tabindex="-1">Restore</button>
+        <button class="tour__tab" type="button" role="tab" id="tour-tab-schedule" aria-controls="tour-schedule" aria-selected="false" tabindex="-1">Schedule</button>
+        <button class="tour__tab" type="button" role="tab" id="tour-tab-storage" aria-controls="tour-storage" aria-selected="false" tabindex="-1">Storage</button>
+        <button class="tour__tab" type="button" role="tab" id="tour-tab-settings" aria-controls="tour-settings" aria-selected="false" tabindex="-1">Settings</button>
+      </div>
 
-      <figure class="tour__item">
-        <a class="shot__zoom tour__shot" href="assets/images/create-backup.png" target="_blank" rel="noopener" aria-label="Open the backup progress screenshot at full size">
-          <img src="assets/images/create-backup.png"
-               alt="The ReBuzz Backups tab while a backup is running: a progress bar at 30% with the message “Database exported”, the elapsed time and the estimated time left, above an empty backup list. Cards at the top show the last backup, stored backups and a private backup folder."
-               width="1280" height="736" loading="lazy" decoding="async">
-          <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
-        </a>
-        <figcaption class="tour__text">
-          <h3 class="tour__title">One button, and you can watch it work</h3>
-          <p>
-            Create Backup copies every file and the whole database into a single
-            ZIP. It runs in small steps with a progress bar and a time estimate, so
-            you can see how far along it is. Keep the page open until it finishes.
-          </p>
-          <p>
-            The cards above it show when the last backup ran, how many you have
-            stored and how much space they take, and whether the backup folder is
-            private.
-          </p>
-        </figcaption>
-      </figure>
+      <div class="tour__panel" id="tour-backups" role="tabpanel" aria-labelledby="tour-tab-backups">
+        <figure class="tour__item" data-view="Backup list">
+          <a class="shot__zoom tour__shot" href="assets/images/your-backups-v180.png" target="_blank" rel="noopener" aria-label="Open the backup list screenshot at full size">
+            <img src="assets/images/your-backups-v180.png"
+                 alt="The ReBuzz Backups tab: cards for the last backup, stored backups, a private backup folder and the next scheduled backup, a Create Backup button, and a table of saved backups, some tagged Scheduled, S3 or Dropbox, each with its size and Download, Restore and Delete buttons."
+                 width="1280" height="745" loading="lazy" decoding="async">
+            <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+          </a>
+          <figcaption class="tour__text">
+            <h3 class="tour__title">Every backup in one list</h3>
+            <p>
+              Download, restore or delete any backup from one table. Tags show which
+              ones the schedule made and which also reached S3 or Dropbox, and the
+              cards on top say when the last backup ran and whether the backup
+              folder is private.
+            </p>
+          </figcaption>
+        </figure>
+        <figure class="tour__item" data-view="In progress">
+          <a class="shot__zoom tour__shot" href="assets/images/create-backup-v180.png" target="_blank" rel="noopener" aria-label="Open the backup progress screenshot at full size">
+            <img src="assets/images/create-backup-v180.png"
+                 alt="The ReBuzz Backups tab while a backup is running: a progress bar at 30% with the message “Database exported”, the elapsed time and the estimated time left, above the list of saved backups. Cards at the top show the last backup, stored backups, a private backup folder and the next scheduled backup."
+                 width="1280" height="789" loading="lazy" decoding="async">
+            <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+          </a>
+          <figcaption class="tour__text">
+            <h3 class="tour__title">One button, and you can watch it work</h3>
+            <p>
+              Create Backup copies every file and the whole database into a single
+              ZIP. It runs in small steps with a progress bar and a time estimate,
+              so you can see how far along it is.
+            </p>
+          </figcaption>
+        </figure>
+      </div>
 
-      <figure class="tour__item tour__item--flip">
-        <a class="shot__zoom tour__shot" href="assets/images/your-backups.png" target="_blank" rel="noopener" aria-label="Open the backup list screenshot at full size">
-          <img src="assets/images/your-backups.png"
-               alt="The ReBuzz Backups tab after a backup has finished: cards for the last backup, stored backups and a private backup folder, a Create Backup button, and a table listing the saved backup with its size and Download, Restore and Delete buttons."
-               width="1280" height="710" loading="lazy" decoding="async">
-          <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
-        </a>
-        <figcaption class="tour__text">
-          <h3 class="tour__title">Every backup in one list</h3>
-          <p>
-            Download a copy, restore it or delete it from the same table. Downloads
-            go through your admin screen, never by a public link.
-          </p>
-          <p>
-            Got an archive that's too big to upload? Copy the ZIP into the backup
-            folder over FTP and it shows up in the list too, at any size.
-          </p>
-        </figcaption>
-      </figure>
+      <div class="tour__panel" id="tour-restore" role="tabpanel" aria-labelledby="tour-tab-restore">
+        <figure class="tour__item" data-view="Choose a backup">
+          <a class="shot__zoom tour__shot" href="assets/images/restore-choose-v180.png" target="_blank" rel="noopener" aria-label="Open the restore screenshot at full size">
+            <img src="assets/images/restore-choose-v180.png"
+                 alt="The ReBuzz Restore tab with two panels: a list of saved backups, each with a Choose button, and an Upload a backup form with a note on bringing a cloud backup back from the Storage tab, a Choose File field and an Upload &amp; Inspect button."
+                 width="1280" height="610" loading="lazy" decoding="async">
+            <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+          </a>
+          <figcaption class="tour__text">
+            <h3 class="tour__title">Restore from a list or an upload</h3>
+            <p>
+              Pick a saved backup, or upload a ZIP made on this site or another one
+              running ReBuzz. That's how you move a site to a new host. For a file
+              over 300&nbsp;MB, copy the ZIP into the backup folder over FTP
+              instead.
+            </p>
+          </figcaption>
+        </figure>
+        <figure class="tour__item" data-view="Before you confirm">
+          <a class="shot__zoom tour__shot" href="assets/images/restore-confirm-v180.png" target="_blank" rel="noopener" aria-label="Open the restore confirmation screenshot at full size">
+            <img src="assets/images/restore-confirm-v180.png"
+                 alt="The ReBuzz Restore this backup screen: a table of what the backup contains (type, date created, WordPress and PHP versions, number of files, database tables and database size), a warning that restoring overwrites the current website, a checkbox to remove files that aren't in the backup, and a Restore Backup button."
+                 width="1280" height="826" loading="lazy" decoding="async">
+            <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+          </a>
+          <figcaption class="tour__text">
+            <h3 class="tour__title">See what&rsquo;s inside before you confirm</h3>
+            <p>
+              The backup's WordPress and PHP versions, file count and database size
+              come first, and nothing changes until you press Restore Backup. Files
+              that aren't in the backup are only moved aside if you ask, never
+              deleted.
+            </p>
+          </figcaption>
+        </figure>
+      </div>
 
-      <figure class="tour__item">
-        <a class="shot__zoom tour__shot" href="assets/images/restore-choose.png" target="_blank" rel="noopener" aria-label="Open the restore screenshot at full size">
-          <img src="assets/images/restore-choose.png"
-               alt="The ReBuzz Restore tab with two panels: a list of saved backups with a Choose button, and an Upload a backup form with a Choose File field and an Upload &amp; Inspect button."
-               width="1280" height="495" loading="lazy" decoding="async">
-          <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
-        </a>
-        <figcaption class="tour__text">
-          <h3 class="tour__title">Restore from a list or an upload</h3>
-          <p>
-            Pick one of your saved backups, or upload a ZIP made on this site or on
-            another one running ReBuzz. That second option is how you move a site to
-            a new host. An uploaded file is checked before anything is restored.
-          </p>
-          <p>
-            The upload form takes files up to 300&nbsp;MB. For a bigger backup, copy
-            the ZIP into the backup folder with FTP or your host's file manager and
-            restore it from the list.
-          </p>
-        </figcaption>
-      </figure>
+      <div class="tour__panel" id="tour-schedule" role="tabpanel" aria-labelledby="tour-tab-schedule">
+        <figure class="tour__item" data-view="Schedule">
+          <a class="shot__zoom tour__shot" href="assets/images/schedule-v180.png" target="_blank" rel="noopener" aria-label="Open the schedule screenshot at full size">
+            <img src="assets/images/schedule-v180.png"
+                 alt="The ReBuzz Schedule tab: cards for the next backup and the last scheduled backup, marked Completed; Automatic backups settings for how often, at what time and how many scheduled backups to keep; Email notices with a choice of when to send, an address field and a Send test email button; and a Run scheduled backup now button."
+                 width="1280" height="1306" loading="lazy" decoding="async">
+            <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+          </a>
+          <figcaption class="tour__text">
+            <h3 class="tour__title">Set a schedule once</h3>
+            <p>
+              Daily or weekly, at an hour you pick. Backups run in the background
+              with no browser open, older scheduled ones are cleared out, and you
+              can get an email when something goes wrong or after every run.
+            </p>
+          </figcaption>
+        </figure>
+      </div>
 
-      <figure class="tour__item tour__item--flip">
-        <a class="shot__zoom tour__shot" href="assets/images/restore-confirm.png" target="_blank" rel="noopener" aria-label="Open the restore confirmation screenshot at full size">
-          <img src="assets/images/restore-confirm.png"
-               alt="The ReBuzz Restore this backup screen after a restore: a table of what the backup contains, a warning that restoring overwrites the current website, a checkbox to remove files that aren't in the backup, a Restore Backup button with a 100% progress bar, a success summary of files, folders and database tables restored, and an Open Permalink Settings button."
-               width="1280" height="1203" loading="lazy" decoding="async">
-          <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
-        </a>
-        <figcaption class="tour__text">
-          <h3 class="tour__title">See what's inside before you confirm</h3>
-          <p>
-            Choosing a backup shows what it holds first: its type, when it was made,
-            the WordPress and PHP versions, and how many files and database tables it
-            contains. Nothing changes until you press Restore Backup, and the screen
-            warns you that it overwrites the current site.
-          </p>
-          <p>
-            A restore only adds and overwrites unless you tick &ldquo;Remove files
-            that aren't in this backup&rdquo;. Even then nothing is deleted: those
-            files are moved aside to a folder with an &ldquo;-old&rdquo; suffix, and
-            you get a button to clear them once you've checked the site. When it
-            finishes, a summary lists what was restored.
-          </p>
-        </figcaption>
-      </figure>
+      <div class="tour__panel" id="tour-storage" role="tabpanel" aria-labelledby="tour-tab-storage">
+        <figure class="tour__item" data-view="Cloud storage">
+          <a class="shot__zoom tour__shot" href="assets/images/storage-v180.png" target="_blank" rel="noopener" aria-label="Open the cloud storage screenshot at full size">
+            <img src="assets/images/storage-v180.png"
+                 alt="The ReBuzz Storage tab with two panels: Amazon S3 and compatible, set up with a service, region, bucket, folder, access key, an encrypted secret key, how many backups to keep and a Test connection button; and Dropbox, connected, with a folder, how many backups to keep, and Test connection and Disconnect buttons."
+                 width="1280" height="895" loading="lazy" decoding="async">
+            <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+          </a>
+          <figcaption class="tour__text">
+            <h3 class="tour__title">A copy off the server, too</h3>
+            <p>
+              Send backups to Amazon S3, S3-compatible services such as Backblaze
+              B2, Cloudflare R2 or Wasabi, or Dropbox. If the server is lost,
+              connect the same storage on a new site and download a backup back to
+              restore it.
+            </p>
+          </figcaption>
+        </figure>
+      </div>
 
-      <figure class="tour__item">
-        <a class="shot__zoom tour__shot" href="assets/images/settings.png" target="_blank" rel="noopener" aria-label="Open the settings screenshot at full size">
-          <img src="assets/images/settings.png"
-               alt="The ReBuzz Settings tab, with a checkbox to include WordPress core files in each backup and a Save Changes button, above a system information table listing the plugin, WordPress and PHP versions and the backup and log folders."
-               width="1280" height="782" loading="lazy" decoding="async">
-          <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
-        </a>
-        <figcaption class="tour__text">
-          <h3 class="tour__title">Choose whether to include WordPress core</h3>
-          <p>
-            Include it and a backup can rebuild the site on an empty server, with the
-            exact WordPress version it was made with. Leave it out and backups are
-            smaller, and a restore keeps the WordPress version already installed.
-          </p>
-          <p>
-            Themes, plugins, uploads and the whole database are always included.
-            wp-config.php never is, so a restore keeps this site's database login.
-            The system information below is there for when you ask for help.
-          </p>
-        </figcaption>
-      </figure>
+      <div class="tour__panel" id="tour-settings" role="tabpanel" aria-labelledby="tour-tab-settings">
+        <figure class="tour__item" data-view="Settings">
+          <a class="shot__zoom tour__shot" href="assets/images/settings-v180.png" target="_blank" rel="noopener" aria-label="Open the settings screenshot at full size">
+            <img src="assets/images/settings-v180.png"
+                 alt="The ReBuzz Settings tab, with a checkbox to include WordPress core files in each backup and a Save Changes button, above a system information table listing the plugin, WordPress and PHP versions and the backup and log folders."
+                 width="1280" height="828" loading="lazy" decoding="async">
+            <span class="shot__zoom-hint" aria-hidden="true"><svg class="ico"><use href="#i-maximize"></use></svg>Full size</span>
+          </a>
+          <figcaption class="tour__text">
+            <h3 class="tour__title">Choose whether to include WordPress core</h3>
+            <p>
+              Include it and a backup can rebuild the site on an empty server; leave
+              it out for smaller backups. Themes, plugins, uploads and the whole
+              database are always included, and wp-config.php never is.
+            </p>
+          </figcaption>
+        </figure>
+      </div>
 
     </div>
   </div>

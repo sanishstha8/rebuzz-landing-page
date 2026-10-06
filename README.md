@@ -40,11 +40,13 @@ rebuzz-landing/
     │   └── README.md
     └── images/
         ├── og-cover.svg    # 1200×630 share card
-        ├── create-backup.png   # real plugin screenshots (v1.6.0)
-        ├── your-backups.png
-        ├── restore-choose.png
-        ├── restore-confirm.png
-        ├── settings.png
+        ├── create-backup-v180.png   # real plugin screenshots (v1.8.0)
+        ├── restore-confirm-v180.png
+        ├── your-backups-v180.png
+        ├── restore-choose-v180.png
+        ├── schedule-v180.png
+        ├── storage-v180.png
+        ├── settings-v180.png
         └── README.md       # how to add more screenshots
 ```
 
@@ -201,9 +203,9 @@ testimonials, customer logos, review scores, certifications or awards. What
 4. **OG image.** `og-cover.png` is what the pages reference; it is rendered
    from `og-cover.svg`. Re-export it if you change the SVG — see
    `assets/images/README.md`.
-5. **Screenshots.** The page uses five real captures from plugin v1.6.0
+5. **Screenshots.** The page uses seven real captures from plugin v1.8.0
    (backup in progress, backup list, restore picker, restore confirmation,
-   settings). Retake them when the plugin's screens change; see
+   schedule, storage, settings). Retake them when the plugin's screens change; see
    `assets/images/README.md`.
 
 Security copy was written to describe process integrity (verification,
